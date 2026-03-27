@@ -46,7 +46,7 @@ export const registerAction = async (
       redirect(`/verify-email?email=${email}`)
     }
 
-    redirect("/dashboard")
+    redirect("/login")
   } catch (error: any) {
     console.log(error)
     if (
