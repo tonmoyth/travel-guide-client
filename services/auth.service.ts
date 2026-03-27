@@ -1,0 +1,81 @@
+"use server"
+
+import { setTokenInCookie } from "@/lib/token"
+import { cookies } from "next/headers"
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+
+if (!BASE_URL) {
+  throw new Error("BASE_URL is not defined in environment variables")
+}
+
+// export const getNewRefreshToken = async (
+//   refreshToken: string,
+//   session: string
+// ): Promise<boolean> => {
+//   try {
+//     const response = await fetch(`${BASE_URL}/auth/refresh-token`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         cookie: `refres_token=${refreshToken}; better-auth.session-token=${session}`,
+//       },
+//     })
+
+//     const payload = await response.json()
+
+//     // some endpoints use "success" but spelling may vary; guard safely
+//     const data = payload?.data ?? payload
+//     if (!data || (!data.success && !data.seccess)) {
+//       console.warn(
+//         "refresh-token response did not contain success flag",
+//         payload
+//       )
+//       return false
+//     }
+//     const { accessToken, refreshToken: newRefreshToken, token } = data
+
+//     await setTokenInCookie({
+//       accessToken: accessToken,
+//       refreshToken: newRefreshToken,
+//       "better-auth.session_token": token,
+//     })
+//     return true
+//   } catch (error) {
+//     console.error("Error fetching new refresh token:", error)
+//     return false
+//   }
+// }
+
+export const getUserInfo = async () => {
+  const cookieStore = await cookies()
+
+  const accessToken = cookieStore.get("accessToken")?.value
+  const session = cookieStore.get("better-auth.session_token")?.value
+
+  if (!accessToken || !session) {
+    return null
+  }
+
+  try {
+    const response = await fetch(`${BASE_URL}/members/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        cookie: `accessToken=${accessToken}; better-auth.session_token=${session}`,
+      },
+    })
+
+    const responseData = await response.json()
+
+    if (!responseData || !responseData.success) {
+      console.warn("/members/me response missing success", responseData)
+      return null
+    }
+
+    return responseData.data
+  } catch (error) {
+    console.error("Error fetching user info:", error)
+    return null
+  }
+}

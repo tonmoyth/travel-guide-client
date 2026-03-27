@@ -1,3 +1,6 @@
+import DashboardNavber from "@/components/modules/dasboard/DashboardNavber"
+import DashboardSidebar from "@/components/modules/dasboard/DashboardSidebar"
+
 type DashboardLayoutProps = {
   children: React.ReactNode
   admin: React.ReactNode
@@ -9,13 +12,20 @@ export default function DashboardLayout({
   admin,
   member,
 }: DashboardLayoutProps) {
-  // TODO: Implement role-based rendering
-  // For now, render all slots
   return (
-    <div>
-      {/* {children} */}
-      {admin}
-      {/* {member} */}
+    <div className="flex h-screen overflow-hidden">
+      {/* Dashboard Sidebar */}
+      <DashboardSidebar></DashboardSidebar>
+
+      <div className="flex flex-1 flex-col overflow-hidden">
+        {/* DashboardNavbar */}
+        <DashboardNavber></DashboardNavber>
+        {/* <DashboardNavbar /> */}
+        {/* Dashboard Content */}
+        <main className="flex-1 overflow-y-auto bg-muted/10 p-4 md:p-6">
+          <div>{admin || member || children}</div>
+        </main>
+      </div>
     </div>
   )
 }
