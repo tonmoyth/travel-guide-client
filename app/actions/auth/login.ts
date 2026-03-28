@@ -8,7 +8,8 @@ import { ILoginPayload, loginSchema } from "@/zod/auth.validation"
 import { redirect } from "next/navigation"
 
 export const loginAction = async (
-  payload: ILoginPayload
+  payload: ILoginPayload,
+  redirectPath?: string
 ): Promise<ILoginResponse | IError> => {
   const parsedPayload = loginSchema.safeParse(payload)
 
@@ -27,7 +28,7 @@ export const loginAction = async (
     )
 
     const { accessToken, refreshToken, token, user } = response.data.data
-    const { email, emailVerified } = user
+    const { email, emailVerified, role } = user
 
     await setTokenInCookie({
       accessToken: accessToken,
@@ -39,7 +40,17 @@ export const loginAction = async (
       redirect(`/verify-email?email=${email}`)
     }
 
-    redirect("/dashboard")
+    redirect(redirectPath || "/dashboard")
+
+    return {
+      success: true,
+      data: {
+        accessToken,
+        refreshToken,
+        token,
+        user,
+      },
+    }
   } catch (error: any) {
     if (
       error &&

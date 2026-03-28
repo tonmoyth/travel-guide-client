@@ -42,17 +42,17 @@ export default function AdminDashboardPage() {
               Review, approve, or reject travel guides submitted by members
             </p>
             <div className="space-y-2">
-              <Link href="/admin/dashboard/pending-guides">
+              <Link href="/dashboard/pending-guides">
                 <Button variant="outline" className="w-full justify-start">
                   View Pending Guides
                 </Button>
               </Link>
-              <Link href="/admin/dashboard/approved-guides">
+              <Link href="/dashboard/approved-guides">
                 <Button variant="outline" className="w-full justify-start">
                   View Approved Guides
                 </Button>
               </Link>
-              <Link href="/admin/dashboard/rejected-guides">
+              <Link href="/dashboard/rejected-guides">
                 <Button variant="outline" className="w-full justify-start">
                   View Rejected Guides
                 </Button>
@@ -66,17 +66,17 @@ export default function AdminDashboardPage() {
               Manage members, roles, and account status
             </p>
             <div className="space-y-2">
-              <Link href="/admin/dashboard/members">
+              <Link href="/dashboard/members">
                 <Button variant="outline" className="w-full justify-start">
                   Manage Members
                 </Button>
               </Link>
-              <Link href="/admin/dashboard/user-roles">
+              <Link href="/dashboard/user-roles">
                 <Button variant="outline" className="w-full justify-start">
                   User Roles
                 </Button>
               </Link>
-              <Link href="/admin/dashboard/account-status">
+              <Link href="/dashboard/account-status">
                 <Button variant="outline" className="w-full justify-start">
                   Account Status
                 </Button>
@@ -92,12 +92,12 @@ export default function AdminDashboardPage() {
               Monitor feedback and handle reported content
             </p>
             <div className="space-y-2">
-              <Link href="/admin/dashboard/feedback">
+              <Link href="/dashboard/feedback">
                 <Button variant="outline" className="w-full justify-start">
                   Feedback Queue
                 </Button>
               </Link>
-              <Link href="/admin/dashboard/reports">
+              <Link href="/dashboard/reports">
                 <Button variant="outline" className="w-full justify-start">
                   View Reports
                 </Button>
@@ -110,7 +110,7 @@ export default function AdminDashboardPage() {
             <p className="mb-4 text-sm text-muted-foreground">
               View and manage all travel guides on the platform
             </p>
-            <Link href="/admin/dashboard/all-guides">
+            <Link href="/dashboard/all-guides">
               <Button className="w-full">Manage All Guides</Button>
             </Link>
           </div>

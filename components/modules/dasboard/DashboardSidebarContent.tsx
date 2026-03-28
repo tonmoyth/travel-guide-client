@@ -20,7 +20,6 @@ const DashboardSidebarContent = ({
   navItems,
   userInfo,
 }: DashboardSidebarContentProps) => {
-  console.log({ dashboardHome, navItems, userInfo })
   const pathname = usePathname()
 
   return (

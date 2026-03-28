@@ -34,14 +34,14 @@ const getCommonNavItems = (role: UserRole): NavSection[] => {
     {
       title: "Settings",
       items: [
-        {
-          title: "Account Settings",
-          href: "/settings/account",
-          icon: "Settings",
-        },
+        // {
+        //   title: "Account Settings",
+        //   href: "/settings/account",
+        //   icon: "Settings",
+        // },
         {
           title: "Change Password",
-          href: "/settings/change-password",
+          href: "/change-password",
           icon: "Lock",
         },
       ],
@@ -58,22 +58,22 @@ const adminNavItems: NavSection[] = [
     items: [
       {
         title: "Pending Guides",
-        href: "/admin/dashboard/pending-guides",
+        href: "/dashboard/pending-guides",
         icon: "Clock",
       },
       {
         title: "Approved Guides",
-        href: "/admin/dashboard/approved-guides",
+        href: "/dashboard/approved-guides",
         icon: "CheckCircle",
       },
       {
         title: "Rejected Guides",
-        href: "/admin/dashboard/rejected-guides",
+        href: "/dashboard/rejected-guides",
         icon: "XCircle",
       },
       {
         title: "All Guides",
-        href: "/admin/dashboard/all-guides",
+        href: "/dashboard/all-guides",
         icon: "FileText",
       },
     ],
@@ -83,17 +83,17 @@ const adminNavItems: NavSection[] = [
     items: [
       {
         title: "Manage Members",
-        href: "/admin/dashboard/members",
+        href: "/dashboards",
         icon: "Users",
       },
       {
         title: "User Roles",
-        href: "/admin/dashboard/user-roles",
+        href: "/dashboard/user-roles",
         icon: "Shield",
       },
       {
         title: "Account Status",
-        href: "/admin/dashboard/account-status",
+        href: "/dashboard/account-status",
         icon: "Activity",
       },
     ],
@@ -103,12 +103,12 @@ const adminNavItems: NavSection[] = [
     items: [
       {
         title: "Feedback Queue",
-        href: "/admin/dashboard/feedback",
+        href: "/dashboard/feedback",
         icon: "MessageSquare",
       },
       {
         title: "Reports",
-        href: "/admin/dashboard/reports",
+        href: "/dashboard/reports",
         icon: "Flag",
       },
     ],
@@ -124,22 +124,22 @@ const memberNavItems: NavSection[] = [
     items: [
       {
         title: "Create Guide",
-        href: "/member/dashboard/create-guide",
+        href: "/dashboard/create-guide",
         icon: "Plus",
       },
       {
         title: "My Drafts",
-        href: "/member/dashboard/drafts",
+        href: "/dashboard/drafts",
         icon: "BookOpen",
       },
       {
         title: "Published Guides",
-        href: "/member/dashboard/published",
+        href: "/dashboard/published",
         icon: "CheckCircle",
       },
       {
         title: "My Submissions",
-        href: "/member/dashboard/submissions",
+        href: "/dashboard/submissions",
         icon: "Send",
       },
     ],
@@ -149,12 +149,12 @@ const memberNavItems: NavSection[] = [
     items: [
       {
         title: "Feedback",
-        href: "/member/dashboard/feedback",
+        href: "/dashboard/feedback",
         icon: "MessageSquare",
       },
       {
         title: "Guide Analytics",
-        href: "/member/dashboard/analytics",
+        href: "/dashboard/analytics",
         icon: "BarChart3",
       },
     ],

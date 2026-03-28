@@ -18,7 +18,7 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { loginAction } from "@/app/actions/auth/login"
 
-export function LoginForm() {
+export function LoginForm({ redirectPath }: { redirectPath?: string }) {
   const [loading, setLoading] = React.useState(false)
 
   const form = useForm({
@@ -29,7 +29,7 @@ export function LoginForm() {
     onSubmit: async ({ value }) => {
       setLoading(true)
       try {
-        const result = await loginAction(value)
+        const result = await loginAction(value, redirectPath)
 
         if (!result.success) {
           toast.error(result.message || "Login failed")

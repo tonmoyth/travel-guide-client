@@ -50,7 +50,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
         </DropdownMenuItem>
 
         <DropdownMenuItem>
-          <Link href={"/change-password"}>
+          <Link href="/settings/change-password">
             <Key className="mr-2 h-4 w-4" />
             Change Password
           </Link>

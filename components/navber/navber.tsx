@@ -23,8 +23,6 @@ export function Navbar() {
     { href: "/register", label: "Register" },
   ]
 
-  const profileItem = { href: "/my-profile", label: "My Profile" }
-
   const isActive = (href: string) => pathname === href
 
   return (
@@ -57,14 +55,14 @@ export function Navbar() {
 
           {/* Auth & Profile - Desktop */}
           <div className="hidden items-center gap-2 md:flex">
-            <Link href={profileItem.href}>
+            {/* <Link href={profileItem.href}>
               <Button
                 variant={isActive(profileItem.href) ? "default" : "ghost"}
                 className="font-medium"
               >
                 {profileItem.label}
               </Button>
-            </Link>
+            </Link> */}
             <div className="h-6 w-px bg-border"></div>
             {authItems.map((item) => (
               <Link key={item.href} href={item.href}>
@@ -107,14 +105,14 @@ export function Navbar() {
                 </Link>
               ))}
               <div className="my-2 h-px bg-border"></div>
-              <Link href={profileItem.href} onClick={() => setIsOpen(false)}>
+              {/* <Link href={profileItem.href} onClick={() => setIsOpen(false)}>
                 <Button
                   variant={isActive(profileItem.href) ? "default" : "ghost"}
                   className="w-full justify-start font-medium"
                 >
                   {profileItem.label}
                 </Button>
-              </Link>
+              </Link> */}
               <div className="my-2 h-px bg-border"></div>
               {authItems.map((item) => (
                 <Link

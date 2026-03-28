@@ -1,4 +1,4 @@
-"use server"
+﻿"use server"
 
 import { setTokenInCookie } from "@/lib/token"
 import { cookies } from "next/headers"
@@ -9,43 +9,43 @@ if (!BASE_URL) {
   throw new Error("BASE_URL is not defined in environment variables")
 }
 
-// export const getNewRefreshToken = async (
-//   refreshToken: string,
-//   session: string
-// ): Promise<boolean> => {
-//   try {
-//     const response = await fetch(`${BASE_URL}/auth/refresh-token`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         cookie: `refres_token=${refreshToken}; better-auth.session-token=${session}`,
-//       },
-//     })
+export const getNewRefreshToken = async (
+  refreshToken: string,
+  session: string
+): Promise<boolean> => {
+  try {
+    const response = await fetch(`${BASE_URL}/members/getNewRefreshToken`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        cookie: `refreshToken=${refreshToken}; better-auth.session-token=${session}`,
+      },
+    })
 
-//     const payload = await response.json()
+    const payload = await response.json()
 
-//     // some endpoints use "success" but spelling may vary; guard safely
-//     const data = payload?.data ?? payload
-//     if (!data || (!data.success && !data.seccess)) {
-//       console.warn(
-//         "refresh-token response did not contain success flag",
-//         payload
-//       )
-//       return false
-//     }
-//     const { accessToken, refreshToken: newRefreshToken, token } = data
+    // some endpoints use "success" but spelling may vary; guard safely
+    const data = payload?.data ?? payload
+    if (!data || (!data.success && !data.seccess)) {
+      console.warn(
+        "refresh-token response did not contain success flag",
+        payload
+      )
+      return false
+    }
+    const { accessToken, refreshToken: newRefreshToken, token } = data
 
-//     await setTokenInCookie({
-//       accessToken: accessToken,
-//       refreshToken: newRefreshToken,
-//       "better-auth.session_token": token,
-//     })
-//     return true
-//   } catch (error) {
-//     console.error("Error fetching new refresh token:", error)
-//     return false
-//   }
-// }
+    await setTokenInCookie({
+      accessToken: accessToken,
+      refreshToken: newRefreshToken,
+      "better-auth.session_token": token,
+    })
+    return true
+  } catch (error) {
+    console.error("Error fetching new refresh token:", error)
+    return false
+  }
+}
 
 export const getUserInfo = async () => {
   const cookieStore = await cookies()

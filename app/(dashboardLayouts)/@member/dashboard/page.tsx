@@ -44,22 +44,22 @@ export default function MemberDashboardPage() {
               Create new guides, save drafts, and manage your submissions
             </p>
             <div className="space-y-2">
-              <Link href="/member/dashboard/create-guide">
+              <Link href="/dashboard/create-guide">
                 <Button className="w-full justify-start bg-primary">
                   + Create New Guide
                 </Button>
               </Link>
-              <Link href="/member/dashboard/drafts">
+              <Link href="/dashboard/drafts">
                 <Button variant="outline" className="w-full justify-start">
                   View Drafts
                 </Button>
               </Link>
-              <Link href="/member/dashboard/published">
+              <Link href="/dashboard/published">
                 <Button variant="outline" className="w-full justify-start">
                   Published Guides
                 </Button>
               </Link>
-              <Link href="/member/dashboard/submissions">
+              <Link href="/dashboard/submissions">
                 <Button variant="outline" className="w-full justify-start">
                   View Submissions
                 </Button>
@@ -73,12 +73,12 @@ export default function MemberDashboardPage() {
               View feedback from admins and track guide performance
             </p>
             <div className="space-y-2">
-              <Link href="/member/dashboard/feedback">
+              <Link href="/dashboard/feedback">
                 <Button variant="outline" className="w-full justify-start">
                   View Feedback
                 </Button>
               </Link>
-              <Link href="/member/dashboard/analytics">
+              <Link href="/dashboard/analytics">
                 <Button variant="outline" className="w-full justify-start">
                   Guide Analytics
                 </Button>

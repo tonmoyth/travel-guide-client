@@ -31,7 +31,6 @@ export const registerAction = async (
       email: parsedPayload.data.email,
       password: parsedPayload.data.password,
     })
-    console.log("Registration response data:", response.data.data)
 
     const { accessToken, refreshToken, token, user } = response.data.data
     const { email, emailVerified } = user

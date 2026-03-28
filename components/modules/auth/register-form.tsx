@@ -17,7 +17,7 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { registerAction } from "@/app/actions/auth/register"
 
-export function RegisterForm() {
+export function RegisterForm({ redirectPath }: { redirectPath?: string }) {
   const [loading, setLoading] = React.useState(false)
 
   const form = useForm({

@@ -1,74 +1,61 @@
 "use server"
+import jwt, { JwtPayload } from "jsonwebtoken"
+import { setCookie } from "./cookies"
 
-import { cookies } from "next/headers"
+const JWT_ACCESS_TOKEN = process.env.JWT_SECRET as string
 
-interface TokenPayload {
-  accessToken: string
-  refreshToken: string
-  "better-auth.session_token": string
-}
+const getTokenRemainingTime = (token: string): number => {
+  if (!token) return 0
 
-export async function setTokenInCookie(payload: TokenPayload) {
   try {
-    const cookieStore = await cookies()
+    const payload = jwt.decode(token) as JwtPayload
 
-    cookieStore.set("accessToken", payload.accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-      path: "/",
-    })
+    if (payload && !payload.exp) {
+      return 0
+    }
 
-    cookieStore.set("refreshToken", payload.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 30, // 30 days
-      path: "/",
-    })
+    const currentTime = Math.floor(Date.now() / 1000)
+    const remainingTime = (payload.exp as number) - currentTime
 
-    cookieStore.set(
-      "better-auth.session_token",
-      payload["better-auth.session_token"],
-      {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        maxAge: 60 * 60 * 24 * 7, // 7 days
-        path: "/",
-      }
-    )
-
-    return true
+    return remainingTime > 0 ? remainingTime : 0
   } catch (error) {
-    console.error("Error setting tokens in cookies:", error)
-    return false
+    console.error("Error decoding token:", error)
+    return 0
   }
 }
 
-export async function getTokenFromCookie(
-  tokenName: string
-): Promise<string | undefined> {
-  try {
-    const cookieStore = await cookies()
-    const token = cookieStore.get(tokenName)
-    return token?.value
-  } catch (error) {
-    console.error("Error getting token from cookies:", error)
-    return undefined
+export interface ITokenPayload {
+  token: {
+    name: string
+    token: string
+  }[]
+}
+
+export const setTokenInCookie = async (
+  tokens: Record<string, string>,
+  fallbackMaxAge: number = 60 * 60 * 24
+) => {
+  for (const [name, token] of Object.entries(tokens)) {
+    let maxAgeInSeconds: number | undefined = undefined
+
+    if (name !== "better-auth.session_token") {
+      maxAgeInSeconds = getTokenRemainingTime(token)
+    }
+    await setCookie(name, token, maxAgeInSeconds || fallbackMaxAge)
   }
 }
 
-export async function clearTokens() {
-  try {
-    const cookieStore = await cookies()
-    cookieStore.delete("accessToken")
-    cookieStore.delete("refreshToken")
-    cookieStore.delete("better-auth.session_token")
-    return true
-  } catch (error) {
-    console.error("Error clearing tokens:", error)
-    return false
-  }
+export const tokenExpiredSoon = async (
+  token: string,
+  thresholdInSeconds: number = 300
+): Promise<boolean> => {
+  const remainingTime = getTokenRemainingTime(token)
+  return Promise.resolve(
+    remainingTime > 0 && remainingTime <= thresholdInSeconds
+  )
+}
+
+export const isTokenExpired = async (token: string): Promise<boolean> => {
+  const remainingTime = getTokenRemainingTime(token)
+  return Promise.resolve(remainingTime === 0)
 }

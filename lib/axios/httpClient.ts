@@ -11,14 +11,14 @@ if (!API_BASE_URL) {
 }
 
 export const axiosInstance = async () => {
-  //   const cookieHeader = await refreshCookie()
+  const cookieHeader = await refreshCookie()
 
   const instance = axios.create({
     baseURL: API_BASE_URL,
     timeout: 10000,
     headers: {
       "Content-Type": "application/json",
-      //   Cookie: cookieHeader,
+      Cookie: cookieHeader,
     },
   })
 
@@ -53,7 +53,6 @@ const httpPost = async <TData>(
   options?: HttpRequestOptions
 ): Promise<IResponse<TData>> => {
   try {
-    console.log("Making HTTP POST request to:", endPoint, "with data:", data) // Debug log
     const instance = await axiosInstance()
     const response = await instance.post<IResponse<TData>>(endPoint, data, {
       params: options?.params,
