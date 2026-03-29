@@ -10,112 +10,102 @@ if (!API_BASE_URL) {
   )
 }
 
-export const axiosInstance = async () => {
-  const cookieHeader = await refreshCookie()
+// ✅ create instance
+export const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 40000,
+  withCredentials: true, // 🔥 important for cookies
+})
 
-  const instance = axios.create({
-    baseURL: API_BASE_URL,
-    timeout: 10000,
-    headers: {
-      "Content-Type": "application/json",
-      Cookie: cookieHeader,
-    },
-  })
+// ✅ request interceptor
+axiosInstance.interceptors.request.use(
+  async (config) => {
+    // ✅ attach cookie if needed
+    const cookieHeader = await refreshCookie()
 
-  return instance
-}
+    if (cookieHeader) {
+      config.headers["Cookie"] = cookieHeader
+    }
+
+    // ✅ ONLY set JSON when NOT FormData
+    if (!(config.data instanceof FormData)) {
+      config.headers["Content-Type"] = "application/json"
+    } else {
+      // ❗ ensure axios handles multipart নিজে
+      delete config.headers["Content-Type"]
+    }
+
+    return config
+  },
+  (error) => Promise.reject(error)
+)
 
 export interface HttpRequestOptions {
   params?: Record<string, unknown>
   headers?: Record<string, string>
 }
 
+// ✅ GET
 const httpGet = async <TData>(
   endPoint: string,
   options?: HttpRequestOptions
 ): Promise<IResponse<TData>> => {
-  try {
-    const instance = await axiosInstance()
-    const response = await instance.get<IResponse<TData>>(endPoint, {
-      params: options?.params,
-      headers: options?.headers,
-    })
-    return response.data
-  } catch (error) {
-    console.error("HTTP GET request failed:", error)
-    throw error
-  }
+  const response = await axiosInstance.get<IResponse<TData>>(endPoint, {
+    params: options?.params,
+    headers: options?.headers,
+  })
+  return response.data
 }
 
+// ✅ POST
 const httpPost = async <TData>(
   endPoint: string,
   data: any,
   options?: HttpRequestOptions
 ): Promise<IResponse<TData>> => {
-  try {
-    const instance = await axiosInstance()
-    const response = await instance.post<IResponse<TData>>(endPoint, data, {
-      params: options?.params,
-      headers: options?.headers,
-    })
-    return response.data
-  } catch (error) {
-    console.error("HTTP POST request failed:", error)
-    throw error
-  }
+  const response = await axiosInstance.post<IResponse<TData>>(endPoint, data, {
+    params: options?.params,
+    headers: options?.headers,
+  })
+  return response.data
 }
 
+// ✅ PUT
 const httpPut = async <TData>(
   endPoint: string,
   data: any,
   options?: HttpRequestOptions
 ): Promise<IResponse<TData>> => {
-  try {
-    const instance = await axiosInstance()
-    const response = await instance.put<IResponse<TData>>(endPoint, data, {
-      params: options?.params,
-      headers: options?.headers,
-    })
-    return response.data
-  } catch (error) {
-    console.error("HTTP PUT request failed:", error)
-    throw error
-  }
+  const response = await axiosInstance.put<IResponse<TData>>(endPoint, data, {
+    params: options?.params,
+    headers: options?.headers,
+  })
+  return response.data
 }
 
+// ✅ PATCH
 const httpPatch = async <TData>(
   endPoint: string,
   data: any,
   options?: HttpRequestOptions
 ): Promise<IResponse<TData>> => {
-  try {
-    const instance = await axiosInstance()
-    const response = await instance.patch<IResponse<TData>>(endPoint, data, {
-      params: options?.params,
-      headers: options?.headers,
-    })
-    return response.data
-  } catch (error) {
-    console.error("HTTP PATCH request failed:", error)
-    throw error
-  }
+  const response = await axiosInstance.patch<IResponse<TData>>(endPoint, data, {
+    params: options?.params,
+    headers: options?.headers,
+  })
+  return response.data
 }
 
+// ✅ DELETE
 const httpDelete = async <TData>(
   endPoint: string,
   options?: HttpRequestOptions
 ): Promise<IResponse<TData>> => {
-  try {
-    const instance = await axiosInstance()
-    const response = await instance.delete<IResponse<TData>>(endPoint, {
-      params: options?.params,
-      headers: options?.headers,
-    })
-    return response.data
-  } catch (error) {
-    console.error("HTTP DELETE request failed:", error)
-    throw error
-  }
+  const response = await axiosInstance.delete<IResponse<TData>>(endPoint, {
+    params: options?.params,
+    headers: options?.headers,
+  })
+  return response.data
 }
 
 export const httpClient = {

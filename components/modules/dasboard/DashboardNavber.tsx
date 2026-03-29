@@ -7,9 +7,9 @@ import DashboardNavberContent from "./DashboardNavberContent"
 export default async function DashboardNavber() {
   const userInfo = await getUserInfo()
 
-  const navItems: NavSection[] = getNavItems(userInfo?.role)
+  const navItems: NavSection[] = getNavItems(userInfo?.user?.role)
 
-  const dashboardHome = getDefaultDashboardRoute(userInfo?.role)
+  const dashboardHome = getDefaultDashboardRoute(userInfo?.user?.role)
   return (
     <div>
       <DashboardNavberContent

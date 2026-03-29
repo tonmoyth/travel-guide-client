@@ -88,7 +88,7 @@ export default function DashboardMobileSidbar({
           <div className="flex-1 overflow-hidden">
             <p className="truncate text-sm font-medium">{userInfo?.name}</p>
             <p className="text-xs text-muted-foreground capitalize">
-              {userInfo?.role.toLocaleLowerCase().replace("_", " ")}
+              {userInfo?.role?.toLocaleLowerCase().replace("_", " ")}
             </p>
           </div>
         </div>
