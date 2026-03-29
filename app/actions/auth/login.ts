@@ -21,7 +21,7 @@ export const loginAction = async (
   }
 
   try {
-    const instance = await axiosInstance()
+    const instance = await axiosInstance
     const response = await instance.post<ILoginResponse>(
       "/members/login",
       parsedPayload.data
