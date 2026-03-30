@@ -1,6 +1,7 @@
 import DashboardNavber from "@/components/modules/dasboard/DashboardNavber"
 import DashboardSidebar from "@/components/modules/dasboard/DashboardSidebar"
 import { getUserInfo } from "@/services/auth.service"
+import { redirect } from "next/navigation"
 
 type DashboardLayoutProps = {
   children: React.ReactNode
@@ -13,6 +14,10 @@ export default async function DashboardLayout({
   member,
 }: DashboardLayoutProps) {
   const userInfo = await getUserInfo()
+
+  if (!userInfo) {
+    redirect("/login")
+  }
 
   return (
     <div className="flex h-screen overflow-hidden">

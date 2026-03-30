@@ -45,16 +45,39 @@ export interface HttpRequestOptions {
   headers?: Record<string, string>
 }
 
-// ✅ GET
 const httpGet = async <TData>(
   endPoint: string,
-  options?: HttpRequestOptions
+  options?: HttpRequestOptions & { tags?: string[] }
 ): Promise<IResponse<TData>> => {
-  const response = await axiosInstance.get<IResponse<TData>>(endPoint, {
-    params: options?.params,
-    headers: options?.headers,
+  const url = new URL(`${API_BASE_URL}${endPoint}`)
+
+  if (options?.params) {
+    Object.entries(options.params).forEach(([key, value]) => {
+      url.searchParams.append(key, String(value))
+    })
+  }
+
+  const cookieHeader = await refreshCookie()
+
+  const res = await fetch(url.toString(), {
+    method: "GET",
+    headers: {
+      ...(cookieHeader ? { Cookie: cookieHeader } : {}),
+      ...(options?.headers || {}),
+    },
+    next: {
+      tags: options?.tags || [],
+    },
   })
-  return response.data
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data")
+  }
+
+  // ✅ IMPORTANT: typed json
+  const data: IResponse<TData> = await res.json()
+
+  return data
 }
 
 // ✅ POST

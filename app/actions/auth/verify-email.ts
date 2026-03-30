@@ -38,7 +38,7 @@ export const verifyEmailAction = async (
       }
     }
 
-    const instance = await axiosInstance()
+    const instance = await axiosInstance
     const response = await instance.post<VerifyEmailResponse>(
       "/members/email-verification",
       {

@@ -7,16 +7,31 @@ import Image from "next/image"
 import { useState } from "react"
 import EditDraftModal from "@/components/modules/member/edit-draft-modal"
 import ViewDraftModal from "@/components/modules/member/view-draft-modal"
+import ConfirmationModal from "@/components/modules/member/confirmation-modal"
 
 interface DraftCardProps {
   guide: DraftGuide
   onSubmit?: (guide: DraftGuide) => void
   onEdit?: (guide: DraftGuide) => void
+  onDelete?: (guide: DraftGuide) => void
+  isSubmitting?: boolean
+  isDeleting?: boolean
 }
 
-export default function DraftCard({ guide, onSubmit, onEdit }: DraftCardProps) {
+export default function DraftCard({
+  guide,
+  onSubmit,
+  onEdit,
+  onDelete,
+  isSubmitting,
+  isDeleting,
+}: DraftCardProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isViewModalOpen, setIsViewModalOpen] = useState(false)
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
+  const [confirmAction, setConfirmAction] = useState<"submit" | "delete">(
+    "submit"
+  )
 
   const handleViewClick = () => {
     setIsViewModalOpen(true)
@@ -31,8 +46,26 @@ export default function DraftCard({ guide, onSubmit, onEdit }: DraftCardProps) {
   }
 
   const handleSubmit = () => {
+    setConfirmAction("submit")
+    setIsConfirmModalOpen(true)
+  }
+
+  const handleDelete = () => {
+    setConfirmAction("delete")
+    setIsConfirmModalOpen(true)
+  }
+
+  const handleConfirmSubmit = () => {
+    setIsConfirmModalOpen(false)
     if (onSubmit) {
       onSubmit(guide)
+    }
+  }
+
+  const handleConfirmDelete = () => {
+    setIsConfirmModalOpen(false)
+    if (onDelete) {
+      onDelete(guide)
     }
   }
 
@@ -119,9 +152,25 @@ export default function DraftCard({ guide, onSubmit, onEdit }: DraftCardProps) {
                 Edit
               </Button>
             </div>
-            <Button size="sm" className="w-full" onClick={handleSubmit}>
-              Submit
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant="destructive"
+                size="sm"
+                className="flex-1"
+                onClick={handleDelete}
+                disabled={isDeleting || isSubmitting}
+              >
+                {isDeleting ? "deleting..." : "Delete"}
+              </Button>
+              <Button
+                size="sm"
+                className="flex-1"
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Submitting..." : "Submit"}
+              </Button>
+            </div>
           </div>
         </div>
       </Card>
@@ -139,6 +188,28 @@ export default function DraftCard({ guide, onSubmit, onEdit }: DraftCardProps) {
         isOpen={isEditModalOpen}
         onClose={handleModalClose}
         onSave={handleEditSave}
+      />
+
+      {/* Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={isConfirmModalOpen}
+        onClose={() => setIsConfirmModalOpen(false)}
+        onConfirm={
+          confirmAction === "submit" ? handleConfirmSubmit : handleConfirmDelete
+        }
+        title={
+          confirmAction === "submit"
+            ? "Submit Guide for Review"
+            : "Delete Draft"
+        }
+        description={
+          confirmAction === "submit"
+            ? "Are you sure you want to submit this guide for review? Once submitted, it will be reviewed by moderators."
+            : "Are you sure you want to delete this draft? This action cannot be undone."
+        }
+        confirmText={confirmAction === "submit" ? "Yes, Submit" : "Yes, Delete"}
+        cancelText="Cancel"
+        isLoading={isSubmitting}
       />
     </>
   )

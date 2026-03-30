@@ -25,7 +25,7 @@ export const registerAction = async (
   }
 
   try {
-    const instance = await axiosInstance()
+    const instance = await axiosInstance
     const response = await instance.post<IRegisterResponse>("/members/signup", {
       name: parsedPayload.data.name,
       email: parsedPayload.data.email,

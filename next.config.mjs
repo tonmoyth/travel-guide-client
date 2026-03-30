@@ -5,7 +5,6 @@ const nextConfig = {
       bodySizeLimit: "10mb",
     },
   },
-  middlewareClientMaxBodySize: "10mb",
   images: {
     remotePatterns: [
       {

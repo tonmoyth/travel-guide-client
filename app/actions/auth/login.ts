@@ -28,7 +28,7 @@ export const loginAction = async (
     )
 
     const { accessToken, refreshToken, token, user } = response.data.data
-    const { email, emailVerified, role } = user
+    const { email, emailVerified } = user
 
     await setTokenInCookie({
       accessToken: accessToken,

@@ -1,10 +1,6 @@
 "use server"
 
 import { axiosInstance } from "@/lib/axios/httpClient"
-import {
-  TravelGuideValidationSchema,
-  TravelGuideFormData,
-} from "@/zod/travel-guide.validation"
 
 interface Category {
   data: {

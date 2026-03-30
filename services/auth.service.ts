@@ -65,6 +65,7 @@ export const getUserInfo = async () => {
         cookie: `accessToken=${accessToken}; better-auth.session_token=${session}`,
       },
     })
+    console.log("getUserInfo response status:", response.status)
 
     const responseData = await response.json()
 
