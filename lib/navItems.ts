@@ -86,16 +86,6 @@ const adminNavItems: NavSection[] = [
         href: "/dashboard/members",
         icon: "Users",
       },
-      {
-        title: "User Roles",
-        href: "/dashboard/user-roles",
-        icon: "Shield",
-      },
-      {
-        title: "Account Status",
-        href: "/dashboard/account-status",
-        icon: "Activity",
-      },
     ],
   },
   {
@@ -105,11 +95,6 @@ const adminNavItems: NavSection[] = [
         title: "Feedback Queue",
         href: "/dashboard/feedback",
         icon: "MessageSquare",
-      },
-      {
-        title: "Reports",
-        href: "/dashboard/reports",
-        icon: "Flag",
       },
     ],
   },

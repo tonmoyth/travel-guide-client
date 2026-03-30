@@ -64,6 +64,7 @@ export function CreateGuideForm({ categories }: CreateGuideFormProps) {
       try {
         const parsedPayload =
           TravelGuideValidationSchema.create.safeParse(value)
+        console.log("Parsed payload:", parsedPayload)
 
         if (!parsedPayload.success) {
           return {

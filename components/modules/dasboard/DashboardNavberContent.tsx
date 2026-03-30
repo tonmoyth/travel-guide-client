@@ -57,10 +57,10 @@ export default function DashboardNavberContent({
 
       {/* Search Component */}
       <div className="flex flex-1 items-center">
-        <div className="relative hidden w-full sm:block">
+        {/* <div className="relative hidden w-full sm:block">
           <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input type="text" placeholder="Search..." className="pr-4 pl-9" />
-        </div>
+        </div> */}
       </div>
 
       {/* Right side action - Icons container */}
