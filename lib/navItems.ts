@@ -79,6 +79,21 @@ const adminNavItems: NavSection[] = [
     ],
   },
   {
+    title: "Category Management",
+    items: [
+      {
+        title: "see all categories",
+        href: "/dashboard/categories",
+        icon: "Tags",
+      },
+      {
+        title: "Create Category",
+        href: "/dashboard/create-category",
+        icon: "Plus",
+      },
+    ],
+  },
+  {
     title: "User Management",
     items: [
       {
