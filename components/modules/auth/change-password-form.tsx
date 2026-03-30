@@ -43,6 +43,7 @@ export function ChangePasswordForm() {
           toast.error(result.message || "Failed to change password")
           return
         }
+        console.log("Password change result:", result)
         form.reset()
         toast.success("Password updated successfully. ")
       } catch (error: any) {

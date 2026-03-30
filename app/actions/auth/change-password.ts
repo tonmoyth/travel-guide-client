@@ -7,6 +7,7 @@ import {
   IChangePasswordResponse,
 } from "@/types/auth.types"
 import { changePasswordSchema } from "@/zod/auth.validation"
+import { logoutAction } from "./logout"
 
 export const changePasswordAction = async (
   payload: IChangePasswordPayload
@@ -31,9 +32,7 @@ export const changePasswordAction = async (
       }
     )
 
-    // if (response.data.success) {
-    //   redirect("/login")
-    // }
+    await logoutAction()
 
     return response.data
   } catch (error: any) {
