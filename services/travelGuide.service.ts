@@ -317,6 +317,95 @@ const travelGuideServices = {
       throw error
     }
   },
+
+  getAll: async (
+    page: number = 1,
+    limit: number = 12,
+    sort?: string,
+    search?: string,
+    filter?: Record<string, string>
+  ): Promise<GetDraftsResponse> => {
+    try {
+      const url = new URL(`${API_BASE_URL}/travel-guides`)
+
+      url.searchParams.append("page", String(page))
+      url.searchParams.append("limit", String(limit))
+
+      // Parse sort format from "-createdAt" to sortBy and sortOrder
+      if (sort) {
+        if (sort.startsWith("-")) {
+          url.searchParams.append("sortBy", sort.substring(1))
+          url.searchParams.append("sortOrder", "desc")
+        } else {
+          url.searchParams.append("sortBy", sort)
+          url.searchParams.append("sortOrder", "asc")
+        }
+      }
+
+      if (search) {
+        url.searchParams.append("searchTerm", search)
+      }
+
+      // Add filter parameters
+      if (filter) {
+        Object.entries(filter).forEach(([key, value]) => {
+          if (value) {
+            // legacy from UI at some point
+            if (key === "minPrice") {
+              url.searchParams.append("price[gte]", value)
+              return
+            }
+            if (key === "maxPrice") {
+              url.searchParams.append("price[lte]", value)
+              return
+            }
+
+            // if already bracket syntax, pass as-is
+            if (key.includes("[")) {
+              url.searchParams.append(key, value)
+              return
+            }
+
+            url.searchParams.append(key, value)
+          }
+        })
+      }
+
+      const fullUrl = url.toString()
+
+      console.log("[travelGuideService.getAll] URL ->", fullUrl)
+
+      const cookieHeader = await refreshCookie()
+
+      const response = await fetch(fullUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          ...(cookieHeader ? { Cookie: cookieHeader } : {}),
+        },
+        next: {
+          revalidate: 60,
+          tags: ["public-guides"],
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch travel guides")
+      }
+
+      const data: IResponse<IQueryResult<DraftGuide>> = await response.json()
+      console.log("[travelGuideService.getAll] Response ->", data)
+
+      return {
+        data: data.data as IQueryResult<DraftGuide>,
+        success: data.success ?? false,
+        message: data.message ?? "",
+      }
+    } catch (error: any) {
+      console.error("Failed to fetch travel guides:", error)
+      throw error
+    }
+  },
 }
 
 export default travelGuideServices
