@@ -31,6 +31,17 @@ export interface IRegisterResponse {
   }
 }
 
+export interface IChangePasswordPayload {
+  currentPassword: string
+  newPassword: string
+  confirmNewPassword: string
+}
+
+export interface IChangePasswordResponse {
+  success: boolean
+  message?: string
+}
+
 export interface IError {
   success: false
   message: string

@@ -80,3 +80,46 @@ export const getUserInfo = async () => {
     return null
   }
 }
+
+export const changePassword = async (
+  currentPassword: string,
+  newPassword: string
+): Promise<{ success: boolean; message?: string } | null> => {
+  try {
+    const cookieStore = await cookies()
+
+    const accessToken = cookieStore.get("accessToken")?.value
+    const session = cookieStore.get("better-auth.session_token")?.value
+
+    if (!accessToken || !session) {
+      return {
+        success: false,
+        message: "Not authenticated",
+      }
+    }
+
+    const response = await fetch(`${BASE_URL}/members/change-password`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        cookie: `accessToken=${accessToken}; better-auth.session_token=${session}`,
+      },
+      body: JSON.stringify({
+        currentPassword,
+        newPassword,
+      }),
+    })
+
+    const data = await response.json()
+    return {
+      success: data?.success ?? false,
+      message: data?.message,
+    }
+  } catch (error) {
+    console.error("Error changing password:", error)
+    return {
+      success: false,
+      message: "Error changing password",
+    }
+  }
+}
