@@ -74,7 +74,18 @@ export const getUserInfo = async () => {
       return null
     }
 
-    return responseData.data
+    // API returns either {data: user} or {data: {user}}
+    const fetchedData = responseData.data
+
+    if (!fetchedData) {
+      return null
+    }
+
+    if (fetchedData.user) {
+      return fetchedData.user
+    }
+
+    return fetchedData
   } catch (error) {
     console.error("Error fetching user info:", error)
     return null
