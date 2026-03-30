@@ -83,7 +83,7 @@ const adminNavItems: NavSection[] = [
     items: [
       {
         title: "Manage Members",
-        href: "/dashboards",
+        href: "/dashboard/members",
         icon: "Users",
       },
       {
