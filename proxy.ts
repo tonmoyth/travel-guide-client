@@ -90,17 +90,25 @@ export async function proxy(request: NextRequest) {
     return response
   }
 
-  if (pathname === "/verify-email") {
-    if (decoded && decoded.emailVerified) {
-      return NextResponse.next()
-    } else {
-      const loginUrl = new URL("/login", request.url)
-      loginUrl.searchParams.set("redirect", pathname)
-      return NextResponse.redirect(loginUrl)
+  if (pathname === "/login" || pathname === "/register") {
+    if (sessionToken && decoded) {
+      const defaultRoute = getDefaultDashboardRoute(role as UserRole)
+      return NextResponse.redirect(new URL(defaultRoute, request.url))
     }
+    return NextResponse.next()
   }
 
-  if (decoded && isAuthRoute(pathname)) {
+  // if (pathname === "/verify-email") {
+  //   if (decoded && decoded.emailVerified) {
+  //     return NextResponse.next()
+  //   } else {
+  //     const loginUrl = new URL("/login", request.url)
+  //     loginUrl.searchParams.set("redirect", pathname)
+  //     return NextResponse.redirect(loginUrl)
+  //   }
+  // }
+
+  if (decoded && sessionToken && isAuthRoute(pathname)) {
     const defaultRoute = "/dashboard"
     return NextResponse.redirect(new URL(defaultRoute, request.url))
   }
@@ -136,7 +144,7 @@ export const config = {
     "/dashboard/:path*",
     "/change-password",
     "/my-profile",
-    "/verify-email",
+    // "/verify-email",
     "/login",
     "/register",
   ],

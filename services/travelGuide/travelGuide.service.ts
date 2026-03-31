@@ -205,21 +205,36 @@ const travelGuideServices = {
           ...(cookieHeader ? { Cookie: cookieHeader } : {}),
         },
       })
+      console.log("Submit for review response status:", response.status)
 
-      if (!response.ok) {
-        throw new Error("Failed to submit guide for review")
+      const responseText = await response.text()
+      let jsonBody: any = null
+      try {
+        jsonBody = responseText ? JSON.parse(responseText) : null
+      } catch (err) {
+        console.warn("Unable to parse submit-for-review response JSON", err)
       }
 
-      const data: IResponse<DraftGuide> = await response.json()
+      if (!response.ok) {
+        const apiMessage = jsonBody?.message || response.statusText
+        throw new Error(
+          apiMessage ||
+            `Failed to submit guide for review (status ${response.status})`
+        )
+      }
 
-      if (!data.success) {
-        throw new Error(data.message || "Failed to submit guide for review")
+      const data: IResponse<DraftGuide> = jsonBody
+
+      if (!data || !data.success || !data.data) {
+        throw new Error(
+          (data && data.message) || "Failed to submit guide for review"
+        )
       }
 
       return data.data as DraftGuide
     } catch (error: any) {
       console.error("Failed to submit guide for review:", error)
-      throw error
+      throw new Error(error?.message || "Failed to submit guide for review")
     }
   },
 

@@ -94,7 +94,7 @@ function PaymentContent() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
+      <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-blue-50 to-indigo-50 p-4">
         <div className="flex flex-col items-center gap-4">
           <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
           <p className="font-medium text-gray-600">
@@ -107,7 +107,7 @@ function PaymentContent() {
 
   if (error || !guide) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
+      <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-blue-50 to-indigo-50 p-4">
         <div className="w-full max-w-md">
           <div className="rounded-lg bg-white p-6 shadow-lg md:p-8">
             <div className="mb-4 flex items-center gap-3 text-red-600">
@@ -131,7 +131,7 @@ function PaymentContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 px-4 py-12">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-50 px-4 py-12">
       <div className="mx-auto max-w-2xl">
         {/* Header */}
         <div className="mb-8">
@@ -198,7 +198,7 @@ function PaymentContent() {
 
               {/* Security Info */}
               <div className="flex items-start gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4">
-                <Lock className="mt-0.5 h-5 w-5 flex-shrink-0 text-blue-600" />
+                <Lock className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
                 <div>
                   <p className="font-medium text-blue-900">Secure Payment</p>
                   <p className="text-sm text-blue-800">
@@ -295,7 +295,7 @@ export default function PaymentPage() {
   return (
     <React.Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
+        <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-blue-50 to-indigo-50 p-4">
           <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
         </div>
       }

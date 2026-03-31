@@ -145,17 +145,22 @@ const memberNavItems: NavSection[] = [
     ],
   },
   {
+    title: "Purchase History",
+    items: [
+      {
+        title: "My Purchases Guides",
+        href: "/dashboard/purchases",
+        icon: "ShoppingCart",
+      },
+    ],
+  },
+  {
     title: "Reviews & Feedback",
     items: [
       {
-        title: "Feedback",
+        title: "Feedback For Rejected Guides",
         href: "/dashboard/feedback",
         icon: "MessageSquare",
-      },
-      {
-        title: "Guide Analytics",
-        href: "/dashboard/analytics",
-        icon: "BarChart3",
       },
     ],
   },

@@ -13,7 +13,7 @@ if (!API_BASE_URL) {
 // ✅ create instance
 export const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 40000,
+  timeout: 80000,
   withCredentials: true, // 🔥 important for cookies
 })
 
