@@ -14,7 +14,7 @@ export async function updateCategoryAction(
     const response = await categoriesService.updateCategory(categoryId, data)
 
     if (response.success) {
-      revalidateTag("categories")
+      revalidateTag("categories", "/admin/categories")
       return { success: true, message: response.message, data: response.data }
     } else {
       return { success: false, message: response.message }

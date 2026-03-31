@@ -1,6 +1,6 @@
 "use server"
 
-import travelGuideServices from "@/services/travelGuide.service"
+import travelGuideServices from "@/services/travelGuide/travelGuide.service"
 
 export interface IQueryResult<T> {
   data: T[]

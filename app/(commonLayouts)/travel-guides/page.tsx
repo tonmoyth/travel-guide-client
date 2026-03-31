@@ -1,3 +1,4 @@
+import * as React from "react"
 import { GuidesList } from "@/components/modules/member/guides-list"
 
 export default function TravelGuidesPage() {
@@ -13,7 +14,17 @@ export default function TravelGuidesPage() {
         </div>
 
         {/* Interactive Content */}
-        <GuidesList />
+        <React.Suspense
+          fallback={
+            <div className="flex h-64 items-center justify-center">
+              <div className="text-sm text-muted-foreground">
+                Loading guides...
+              </div>
+            </div>
+          }
+        >
+          <GuidesList />
+        </React.Suspense>
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 "use server"
 
 import { revalidateTag } from "next/cache"
-import travelGuideServices from "@/services/travelGuide.service"
+import travelGuideServices from "@/services/travelGuide/travelGuide.service"
 
 export async function getSubmission(
   page: number = 1,

@@ -68,6 +68,44 @@ interface UpdateDraftPayload {
   coverImage?: string
 }
 
+interface GuideDetails {
+  id: string
+  title: string
+  category: {
+    id: string
+    slug: string
+    title: string
+    description: string
+    isDeleted: boolean
+    deletedAt: string | null
+    createdAt: string
+    updatedAt: string
+  }
+  isPaid: boolean
+  locked: boolean
+  memberId?: string
+  description?: string
+  itinerary?: string
+  status?: string
+  price?: number
+  coverImage?: string
+  isDeleted?: boolean
+  deletedAt?: string | null
+  createdAt?: string
+  updatedAt?: string
+  member?: {
+    id: string
+    name: string
+    email: string
+  }
+}
+
+interface GetGuideDetailsResponse {
+  data: GuideDetails
+  success: boolean
+  message: string
+}
+
 const travelGuideServices = {
   getDrafts: async (
     page: number = 1,
@@ -404,6 +442,53 @@ const travelGuideServices = {
     } catch (error: any) {
       console.error("Failed to fetch travel guides:", error)
       throw error
+    }
+  },
+
+  getById: async (id: string): Promise<GetGuideDetailsResponse> => {
+    try {
+      const cookieHeader = await refreshCookie()
+
+      const response = await fetch(`${API_BASE_URL}/travel-guides/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          ...(cookieHeader ? { Cookie: cookieHeader } : {}),
+        },
+      })
+
+      if (!response.ok) {
+        return {
+          data: {} as GuideDetails,
+          success: false,
+          message: response.statusText || "Failed to fetch guide details",
+        }
+      }
+
+      const data: IResponse<GuideDetails> = await response.json()
+      console.log("Guide details response:", data.data)
+
+      if (!data.success || !data.data) {
+        return {
+          data: {} as GuideDetails,
+          success: false,
+          message: data.message || "No guide details returned",
+        }
+      }
+
+      return {
+        data: data.data,
+        success: true,
+        message: data.message || "",
+      }
+    } catch (error: any) {
+      console.error("Failed to fetch guide details:", error)
+      // Return a failed response instead of throwing
+      return {
+        data: {} as GuideDetails,
+        success: false,
+        message: error.message || "Failed to fetch guide details",
+      }
     }
   },
 }

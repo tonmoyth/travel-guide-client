@@ -1,6 +1,6 @@
 "use server"
 
-import travelGuideServices from "@/services/travelGuide.service"
+import travelGuideServices from "@/services/travelGuide/travelGuide.service"
 import { DraftGuide } from "@/app/actions/member/get-drafts"
 import { revalidateTag } from "next/cache"
 

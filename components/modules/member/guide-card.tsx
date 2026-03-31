@@ -12,7 +12,7 @@ interface GuideCardProps {
     price?: number
     category?: { title: string; slug: string }
     guideMedia?: Array<{ url: string; type: string }>
-    votes?: Array<{ type: "UPVOTE" | "DOWNVOTE" }>
+    votes?: Array<{ type: "UPVOTE" | "DOWNVOTE" | "UP" | "DOWN" }>
     comments?: Array<{ id: string }>
     createdAt: string
   }
@@ -21,9 +21,11 @@ interface GuideCardProps {
 
 export function GuideCard({ guide, authorName }: GuideCardProps) {
   const upvoteCount =
-    guide.votes?.filter((v) => v.type === "UPVOTE").length || 0
+    guide.votes?.filter((v) => v.type === "UPVOTE" || v.type === "UP").length ||
+    0
   const downvoteCount =
-    guide.votes?.filter((v) => v.type === "DOWNVOTE").length || 0
+    guide.votes?.filter((v) => v.type === "DOWNVOTE" || v.type === "DOWN")
+      .length || 0
   const commentCount = guide.comments?.length || 0
 
   // Use cover image or first media image as fallback
@@ -80,7 +82,7 @@ export function GuideCard({ guide, authorName }: GuideCardProps) {
         <div className="mb-3 flex items-center gap-4">
           <div className="flex items-center gap-1">
             <ThumbsUp className="h-4 w-4 text-green-600" />
-            <span className="text-sm">{upvoteCount}</span>
+            <span className="text-sm">{guide.votes?.length}</span>
           </div>
           <div className="flex items-center gap-1">
             <MessageCircle className="h-4 w-4 text-blue-600" />

@@ -1,6 +1,6 @@
 "use server"
 
-import travelGuideServices from "@/services/travelGuide.service"
+import travelGuideServices from "@/services/travelGuide/travelGuide.service"
 
 export async function getUnderReview(
   page: number = 1,

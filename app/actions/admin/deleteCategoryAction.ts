@@ -8,7 +8,7 @@ export async function deleteCategoryAction(categoryId: string) {
     const response = await categoriesService.deleteCategory(categoryId)
 
     if (response.success) {
-      revalidateTag("categories")
+      revalidateTag("categories", "/admin/categories")
       return { success: true, message: response.message }
     } else {
       return { success: false, message: response.message }
