@@ -13,18 +13,20 @@ if (!API_BASE_URL) {
 // ✅ create instance
 export const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 80000,
-  withCredentials: true, // 🔥 important for cookies
+  timeout: 50000,
+  withCredentials: true,
 })
 
 // ✅ request interceptor
 axiosInstance.interceptors.request.use(
   async (config) => {
-    // ✅ attach cookie if needed
-    const cookieHeader = await refreshCookie()
+    // ✅ attach cookie if needed (only on server side)
+    if (typeof window === "undefined") {
+      const cookieHeader = await refreshCookie()
 
-    if (cookieHeader) {
-      config.headers["Cookie"] = cookieHeader
+      if (cookieHeader) {
+        config.headers["Cookie"] = cookieHeader
+      }
     }
 
     // ✅ ONLY set JSON when NOT FormData

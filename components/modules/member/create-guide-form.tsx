@@ -95,17 +95,20 @@ export function CreateGuideForm({ categories }: CreateGuideFormProps) {
           )
         }
 
-        if (parsedPayload.data.status) {
-          formData.append("status", parsedPayload.data.status)
-        }
+        // Always send status
+        formData.append(
+          "status",
+          parsedPayload.data.status || GuideStatus.DRAFT
+        )
 
-        if (parsedPayload.data.isPaid !== undefined) {
-          formData.append("isPaid", String(parsedPayload.data.isPaid))
-        }
+        // Always send isPaid as string
+        formData.append("isPaid", String(parsedPayload.data.isPaid || false))
 
-        if (parsedPayload.data.price !== undefined) {
-          formData.append("price", String(parsedPayload.data.price))
-        }
+        // Always send price as string, default to 0 if not paid
+        const priceValue = parsedPayload.data.isPaid
+          ? parsedPayload.data.price || 0
+          : 0
+        formData.append("price", String(priceValue))
 
         // Handle coverImage file
         if (
@@ -131,7 +134,15 @@ export function CreateGuideForm({ categories }: CreateGuideFormProps) {
           `${process.env.NEXT_PUBLIC_API_BASE_URL}/travel-guides`,
           formData
         )
-        console.log("Create guide response:", res)
+
+        console.log("FormData contents:")
+        for (const [key, value] of formData.entries()) {
+          if (value instanceof File) {
+            console.log(`${key}: File(${value.name}, ${value.size} bytes)`)
+          } else {
+            console.log(`${key}: ${value}`)
+          }
+        }
 
         if (res.status === 201) {
           toast.success("Guide created successfully!")

@@ -1,5 +1,6 @@
 import { refreshCookie } from "@/lib/axios/refreshCookie"
 import { IResponse } from "@/types/api.types"
+import { toast } from "sonner"
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
@@ -106,6 +107,56 @@ interface GetGuideDetailsResponse {
   message: string
 }
 
+interface TopVotedGuide {
+  id: string
+  title: string
+  category: {
+    id: string
+    slug: string
+    title: string
+    description: string
+    isDeleted: boolean
+    deletedAt: string | null
+    createdAt: string
+    updatedAt: string
+  }
+  isPaid: boolean
+  price?: number
+  createdAt: string
+  description: string
+  locked?: boolean
+  memberId?: string
+  itinerary?: string
+  status?: string
+  coverImage?: string
+  isDeleted?: boolean
+  deletedAt?: string | null
+  updatedAt?: string
+  guideMedia?: Array<{
+    id: string
+    guideId: string
+    type: string
+    url: string
+    createdAt: string
+    updatedAt: string
+  }>
+  votes?: Array<{
+    id: string
+    memberId: string
+    guideId: string
+    voteType: "UP" | "DOWN"
+    createdAt: string
+    updatedAt: string
+  }>
+  comments?: any[]
+}
+
+interface GetTopVotedGuidesResponse {
+  data: TopVotedGuide[]
+  success: boolean
+  message: string
+}
+
 const travelGuideServices = {
   getDrafts: async (
     page: number = 1,
@@ -205,7 +256,6 @@ const travelGuideServices = {
           ...(cookieHeader ? { Cookie: cookieHeader } : {}),
         },
       })
-      console.log("Submit for review response status:", response.status)
 
       const responseText = await response.text()
       let jsonBody: any = null
@@ -503,6 +553,43 @@ const travelGuideServices = {
         data: {} as GuideDetails,
         success: false,
         message: error.message || "Failed to fetch guide details",
+      }
+    }
+  },
+
+  getTopVotedGuides: async (): Promise<GetTopVotedGuidesResponse> => {
+    try {
+      const cookieHeader = await refreshCookie()
+
+      const response = await fetch(`${API_BASE_URL}/travel-guides/top-voted`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          ...(cookieHeader ? { Cookie: cookieHeader } : {}),
+        },
+        next: {
+          revalidate: 300, // Revalidate every 5 minutes for top voted guides
+          tags: ["top-voted-guides"],
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch top voted guides")
+      }
+
+      const data: IResponse<TopVotedGuide[]> = await response.json()
+
+      return {
+        data: data.data || [],
+        success: data.success ?? false,
+        message: data.message ?? "",
+      }
+    } catch (error: any) {
+      console.error("Failed to fetch top voted guides:", error)
+      return {
+        data: [],
+        success: false,
+        message: error.message || "Failed to fetch top voted guides",
       }
     }
   },

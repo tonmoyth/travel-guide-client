@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/navber/navber"
+import NavbarWrapper from "@/components/navber/NavbarWrapper"
 
 export default function CommonLayout({
   children,
@@ -7,7 +7,7 @@ export default function CommonLayout({
 }) {
   return (
     <>
-      <Navbar />
+      <NavbarWrapper />
       {children}
     </>
   )

@@ -91,6 +91,12 @@ export function ApprovedGuidesTable({
                     >
                       Reject Guide
                     </DropdownMenuItem>
+                    {/* <DropdownMenuItem
+                      onClick={() => handleRejectGuide(guide)}
+                      className="text-destructive focus:text-destructive"
+                    >
+                      pending guide
+                    </DropdownMenuItem> */}
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableCell>

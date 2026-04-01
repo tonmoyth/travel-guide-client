@@ -19,9 +19,9 @@ export const logoutAction = async (): Promise<ILogoutResponse> => {
     await deleteCookie("refreshToken")
     await deleteCookie("better-auth.session_token")
 
-    if (response.data.success) {
-      redirect("/login")
-    }
+    // if (response.data.success) {
+    //   redirect("/login")
+    // }
 
     return response.data
   } catch (error: any) {

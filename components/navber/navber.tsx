@@ -1,12 +1,20 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
+import { Menu, X, LogOut } from "lucide-react"
 import { useState } from "react"
+import swal from "sweetalert"
+import { UserInfo } from "@/types/user.types"
+import { logoutAction } from "@/app/actions/auth/logout"
 
-export function Navbar() {
+interface NavbarProps {
+  userInfo?: UserInfo | null
+}
+
+export function Navbar({ userInfo }: NavbarProps) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -18,12 +26,38 @@ export function Navbar() {
     { href: "/blog", label: "Blog" },
   ]
 
-  const authItems = [
-    { href: "/login", label: "Login" },
-    { href: "/register", label: "Register" },
-  ]
+  const authItems = userInfo
+    ? [{ href: "/my-profile", label: "My Profile" }]
+    : [
+        { href: "/login", label: "Login" },
+        { href: "/register", label: "Register" },
+      ]
 
   const isActive = (href: string) => pathname === href
+
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+
+  const handleLogout = async () => {
+    if (isLoggingOut) return
+
+    const shouldLogout = await swal({
+      title: "Are you sure?",
+      text: "You will be logged out from the application.",
+      icon: "warning",
+      buttons: ["Cancel", "Logout"],
+      dangerMode: true,
+    })
+
+    if (!shouldLogout) return
+
+    setIsLoggingOut(true)
+    try {
+      await logoutAction()
+    } catch (error) {
+      console.error("Logout failed:", error)
+      setIsLoggingOut(false)
+    }
+  }
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -31,12 +65,16 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground">
-              TG
-            </div>
-            <span className="text-xl font-bold text-foreground">
+            <Image
+              src="/assets/logo.png"
+              alt="Travel Guide Logo"
+              width={100}
+              height={100}
+              className="rounded"
+            />
+            {/* <span className="text-xl font-bold text-foreground">
               TravelGuide
-            </span>
+            </span> */}
           </Link>
 
           {/* Desktop Menu */}
@@ -55,15 +93,7 @@ export function Navbar() {
 
           {/* Auth & Profile - Desktop */}
           <div className="hidden items-center gap-2 md:flex">
-            {/* <Link href={profileItem.href}>
-              <Button
-                variant={isActive(profileItem.href) ? "default" : "ghost"}
-                className="font-medium"
-              >
-                {profileItem.label}
-              </Button>
-            </Link> */}
-            <div className="h-6 w-px bg-border"></div>
+            <div className="h-6 w-px bg-border" />
             {authItems.map((item) => (
               <Link key={item.href} href={item.href}>
                 <Button
@@ -74,6 +104,18 @@ export function Navbar() {
                 </Button>
               </Link>
             ))}
+
+            {userInfo && (
+              <Button
+                variant="outline"
+                onClick={handleLogout}
+                className="font-medium"
+                disabled={isLoggingOut}
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                {isLoggingOut ? "Logging out..." : "Logout"}
+              </Button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -128,6 +170,21 @@ export function Navbar() {
                   </Button>
                 </Link>
               ))}
+
+              {userInfo && (
+                <Button
+                  variant="outline"
+                  className="w-full justify-start font-medium"
+                  onClick={async () => {
+                    setIsOpen(false)
+                    await handleLogout()
+                  }}
+                  disabled={isLoggingOut}
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  {isLoggingOut ? "Logging out..." : "Logout"}
+                </Button>
+              )}
             </div>
           </div>
         )}

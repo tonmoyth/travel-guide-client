@@ -1,5 +1,6 @@
 import * as React from "react"
 import { GuidesList } from "@/components/modules/member/guides-list"
+import SearchSection from "@/components/home/SearchSection"
 
 export default function TravelGuidesPage() {
   return (
@@ -12,6 +13,9 @@ export default function TravelGuidesPage() {
             Discover amazing travel guides from our community
           </p>
         </div>
+
+        {/* Search section */}
+        {/* <SearchSection /> */}
 
         {/* Interactive Content */}
         <React.Suspense

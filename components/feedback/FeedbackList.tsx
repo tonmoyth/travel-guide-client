@@ -2,8 +2,6 @@
 
 import { FeedbackCard } from "./FeedbackCard"
 
-
-
 interface FeedbackItem {
   feedback: string
   guide: {

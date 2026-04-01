@@ -12,7 +12,6 @@ import {
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { Badge } from "@/components/ui/badge"
 import swal from "sweetalert"
 
 import { submitGuideForReview } from "@/app/actions/member/update-guide-status"
@@ -36,8 +35,6 @@ export function FeedbackCard({ feedback, guide }: FeedbackCardProps) {
   const [viewOpen, setViewOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [currentStatus, setCurrentStatus] = useState(guide.status)
 
   const handleSubmit = async () => {
     const confirmed = await swal({
@@ -53,8 +50,6 @@ export function FeedbackCard({ feedback, guide }: FeedbackCardProps) {
     try {
       setIsSubmitting(true)
       await submitGuideForReview(guide.id)
-      setCurrentStatus("UNDER_REVIEW") // or whatever the new status is
-      setIsSubmitted(true)
       router.refresh()
       toast.success("Guide submitted for review successfully")
     } catch (error: any) {
@@ -65,17 +60,16 @@ export function FeedbackCard({ feedback, guide }: FeedbackCardProps) {
     }
   }
 
+  console.log("Guide data in FeedbackCard:", guide.status) // Debug log
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>{guide.title}</CardTitle>
-        <Badge variant={currentStatus === "REJECTED" ? "destructive" : "default"}>
-          {currentStatus}
-        </Badge>
       </CardHeader>
       <CardContent>
-              <p className="mb-4">{guide.description}</p>
-              
+        <p className="mb-4">{guide.description}</p>
+
         <div className="flex gap-2">
           <Dialog open={viewOpen} onOpenChange={setViewOpen}>
             <DialogTrigger asChild>
@@ -86,6 +80,7 @@ export function FeedbackCard({ feedback, guide }: FeedbackCardProps) {
               <DialogDescription>
                 Feedback for guide: {guide.title}
               </DialogDescription>
+
               <p>{feedback}</p>
             </DialogContent>
           </Dialog>
@@ -94,8 +89,15 @@ export function FeedbackCard({ feedback, guide }: FeedbackCardProps) {
             Edit
           </Button>
 
-          <Button onClick={handleSubmit} disabled={isSubmitting || isSubmitted}>
-            {isSubmitted ? "Submitted" : isSubmitting ? "Submitting..." : "Submit"}
+          <Button
+            onClick={handleSubmit}
+            disabled={isSubmitting || guide.status === "UNDER_REVIEW"}
+          >
+            {isSubmitting
+              ? "Submitting..."
+              : guide.status === "UNDER_REVIEW"
+                ? " Under Review"
+                : "Submit"}
           </Button>
         </div>
 

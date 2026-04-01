@@ -158,7 +158,7 @@ const memberNavItems: NavSection[] = [
     title: "Reviews & Feedback",
     items: [
       {
-        title: "Feedback For Rejected Guides",
+        title: " Rejected Guides",
         href: "/dashboard/feedback",
         icon: "MessageSquare",
       },

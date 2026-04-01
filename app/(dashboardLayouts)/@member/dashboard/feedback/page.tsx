@@ -10,7 +10,6 @@ interface FeedbackItem {
     title: string
     description: string
     status: string
-    // add more fields as needed
   }
 }
 
