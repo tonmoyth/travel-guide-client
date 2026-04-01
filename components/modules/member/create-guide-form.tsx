@@ -30,7 +30,37 @@ import {
   TravelGuideFormData,
   GuideStatus,
 } from "@/zod/travel-guide.validation"
-import { axiosInstance } from "@/lib/axios/httpClient"
+import { createGuideAction } from "@/actions/travel-guide/createGuideAction"
+
+// Cloudinary upload function
+const uploadToCloudinary = async (file: File): Promise<string> => {
+  const formData = new FormData()
+  formData.append("file", file)
+  // Important: Only add upload_preset, NOT cloud_name in FormData
+  // cloud_name goes in the URL only
+  formData.append("upload_preset", "travel-guides") // Use unsigned preset (create one in Cloudinary dashboard)
+
+  const cloudName = "dsblzzfib" // Replace with YOUR cloud name
+
+  const response = await fetch(
+    `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+    {
+      method: "POST",
+      body: formData,
+    }
+  )
+
+  if (!response.ok) {
+    const errorData = await response.json()
+    console.error("Cloudinary error:", errorData)
+    throw new Error(
+      `Cloudinary upload failed: ${errorData.error?.message || "Unknown error"}`
+    )
+  }
+
+  const data = await response.json()
+  return data.secure_url // Return the secure URL of the uploaded image
+}
 
 interface Category {
   id?: string
@@ -60,93 +90,84 @@ export function CreateGuideForm({ categories }: CreateGuideFormProps) {
       images: [],
     },
     onSubmit: async ({ value }) => {
+      console.log("Form submitted with value:", value)
       setLoading(true)
       try {
+        // Upload files to Cloudinary first
+        let coverImageUrl = ""
+        let imageUrls: string[] = []
+
+        // Type assertion for raw form values (still contain File objects)
+        const formValue = value as any
+
+        // Upload cover image if exists
+        if (formValue.coverImage && formValue.coverImage instanceof File) {
+          toast.info("Uploading cover image...")
+          coverImageUrl = await uploadToCloudinary(formValue.coverImage)
+          toast.success("Cover image uploaded!")
+        }
+
+        // Upload additional images if exist
+        if (
+          formValue.images &&
+          Array.isArray(formValue.images) &&
+          formValue.images.length > 0
+        ) {
+          toast.info("Uploading additional images...")
+          const uploadPromises = formValue.images.map(async (image: any) => {
+            if (image instanceof File) {
+              return await uploadToCloudinary(image)
+            }
+            return ""
+          })
+          imageUrls = await Promise.all(uploadPromises)
+          toast.success("Additional images uploaded!")
+        }
+
+        // Prepare payload with Cloudinary URLs
+        const payload = {
+          ...value,
+          coverImage: coverImageUrl || undefined,
+          images: imageUrls.length > 0 ? imageUrls : undefined,
+        }
+
+        console.log("Final payload with Cloudinary URLs:", payload)
+
         const parsedPayload =
-          TravelGuideValidationSchema.create.safeParse(value)
+          TravelGuideValidationSchema.create.safeParse(payload)
         console.log("Parsed payload:", parsedPayload)
 
         if (!parsedPayload.success) {
-          return {
-            success: false,
-            message: parsedPayload.error.issues[0].message,
-          }
+          toast.error(parsedPayload.error.issues[0].message)
+          return
         }
 
-        // Create FormData for multipart upload
-        const formData = new FormData()
-
-        // Add text fields
-        formData.append("title", parsedPayload.data.title)
-        formData.append("description", parsedPayload.data.description)
-        formData.append("categoryId", parsedPayload.data.categoryId)
-
-        if (parsedPayload.data.destination) {
-          formData.append("destination", parsedPayload.data.destination)
+        // Send JSON data with Cloudinary URLs directly
+        const requestData = {
+          title: parsedPayload.data.title,
+          description: parsedPayload.data.description,
+          categoryId: parsedPayload.data.categoryId,
+          destination: parsedPayload.data.destination || undefined,
+          itinerary: parsedPayload.data.itinerary || [],
+          status: parsedPayload.data.status || GuideStatus.DRAFT,
+          isPaid: parsedPayload.data.isPaid || false,
+          price: parsedPayload.data.isPaid
+            ? parsedPayload.data.price
+            : undefined,
+          coverImage: coverImageUrl || undefined,
+          images: imageUrls.length > 0 ? imageUrls : undefined,
         }
 
-        if (
-          parsedPayload.data.itinerary &&
-          parsedPayload.data.itinerary.length > 0
-        ) {
-          formData.append(
-            "itinerary",
-            JSON.stringify(parsedPayload.data.itinerary)
-          )
-        }
+        console.log("Sending request data:", requestData)
 
-        // Always send status
-        formData.append(
-          "status",
-          parsedPayload.data.status || GuideStatus.DRAFT
-        )
+        toast.info("Creating travel guide...")
+        const res = await createGuideAction(requestData)
 
-        // Always send isPaid as string
-        formData.append("isPaid", String(parsedPayload.data.isPaid || false))
-
-        // Always send price as string, default to 0 if not paid
-        const priceValue = parsedPayload.data.isPaid
-          ? parsedPayload.data.price || 0
-          : 0
-        formData.append("price", String(priceValue))
-
-        // Handle coverImage file
-        if (
-          parsedPayload.data.coverImage &&
-          parsedPayload.data.coverImage instanceof File
-        ) {
-          formData.append("coverImage", parsedPayload.data.coverImage)
-        }
-
-        // Handle images files
-        if (
-          parsedPayload.data.images &&
-          Array.isArray(parsedPayload.data.images)
-        ) {
-          parsedPayload.data.images.forEach((image) => {
-            if (image instanceof File) {
-              formData.append("images", image)
-            }
-          })
-        }
-
-        const res = await axiosInstance.post(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/travel-guides`,
-          formData
-        )
-
-        console.log("FormData contents:")
-        for (const [key, value] of formData.entries()) {
-          if (value instanceof File) {
-            console.log(`${key}: File(${value.name}, ${value.size} bytes)`)
-          } else {
-            console.log(`${key}: ${value}`)
-          }
-        }
-
-        if (res.status === 201) {
+        if (res.success) {
           toast.success("Guide created successfully!")
           form.reset()
+        } else {
+          toast.error(res.message || "Failed to create guide")
         }
       } catch (error: any) {
         console.error("Create guide error:", error)
@@ -278,7 +299,7 @@ export function CreateGuideForm({ categories }: CreateGuideFormProps) {
                         accept="image/*"
                         onChange={(e) => {
                           const file = e.target.files?.[0]
-                          field.handleChange(file || undefined)
+                          field.handleChange((file || undefined) as any)
                         }}
                       />
                       <FieldError
@@ -298,7 +319,7 @@ export function CreateGuideForm({ categories }: CreateGuideFormProps) {
                         multiple
                         onChange={(e) => {
                           const files = Array.from(e.target.files || [])
-                          field.handleChange(files)
+                          field.handleChange(files as any)
                         }}
                       />
                     )}

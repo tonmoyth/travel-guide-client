@@ -1,4 +1,5 @@
 import { refreshCookie } from "@/lib/axios/refreshCookie"
+import { toast } from "sonner"
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
@@ -71,10 +72,9 @@ export const categoriesService = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Cookie: await refreshCookie(),
       },
-      credentials: "include",
-      next: { tags: ["categories"] },
+
+      next: { revalidate: 10, tags: ["categories"] },
     })
 
     if (!response.ok) {

@@ -33,6 +33,7 @@ export function CreateCategoryForm() {
       description: "",
     },
     onSubmit: async ({ value }) => {
+      const toastId = toast.loading("Creating category...")
       setIsSubmitting(true)
 
       const parseResult = CategoryValidationSchema.create.safeParse(value)
@@ -46,20 +47,22 @@ export function CreateCategoryForm() {
         const response = await createCategoryAction(parseResult.data)
 
         if (!response || !response.success) {
-          toast.error(response?.message || "Failed to create category")
+          toast.error(response?.message || "Failed to create category", {
+            id: toastId,
+          })
           setIsSubmitting(false)
           return
         }
 
-        toast.success(response.message || "Category created successfully")
+        toast.success(response.message || "Category created successfully", {
+          id: toastId,
+        })
         form.reset()
-
-        // Redirect to categories list after creation
-        router.push("/dashboard/categories")
       } catch (error: any) {
         console.error("Create category error:", error)
         toast.error(
-          error?.message || "An error occurred while creating category"
+          error?.message || "An error occurred while creating category",
+          { id: toastId }
         )
       } finally {
         setIsSubmitting(false)

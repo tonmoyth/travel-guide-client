@@ -103,16 +103,16 @@ const adminNavItems: NavSection[] = [
       },
     ],
   },
-  {
-    title: "Feedback & Moderation",
-    items: [
-      {
-        title: "Feedback Queue",
-        href: "/dashboard/feedback",
-        icon: "MessageSquare",
-      },
-    ],
-  },
+  // {
+  //   title: "Feedback & Moderation",
+  //   items: [
+  //     {
+  //       title: "Feedback Queue",
+  //       href: "/dashboard/feedback",
+  //       icon: "MessageSquare",
+  //     },
+  //   ],
+  // },
 ]
 
 /**

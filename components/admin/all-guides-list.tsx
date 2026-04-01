@@ -16,21 +16,31 @@ import { Guide } from "@/services/admin/all-guides.service"
 
 const LIMIT = 12
 
-export function AllGuidesList() {
+interface AllGuidesListProps {
+  initialGuides: Guide[]
+  initialTotal: number
+  initialPage: number
+}
+
+export function AllGuidesList({
+  initialGuides,
+  initialTotal,
+  initialPage,
+}: AllGuidesListProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
   // State
-  const [guides, setGuides] = React.useState<Guide[]>([])
-  const [isLoading, setIsLoading] = React.useState(true)
-  const [currentPage, setCurrentPage] = React.useState(1)
-  const [totalGuides, setTotalGuides] = React.useState(0)
+  const [guides, setGuides] = React.useState<Guide[]>(initialGuides)
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [currentPage, setCurrentPage] = React.useState(initialPage)
+  const [totalGuides, setTotalGuides] = React.useState(initialTotal)
+  const [currentLimit, setCurrentLimit] = React.useState(LIMIT)
   const [selectedGuide, setSelectedGuide] = React.useState<Guide | null>(null)
   const [isModalOpen, setIsModalOpen] = React.useState(false)
 
   const currentSort = searchParams.get("sort") || "all"
   const currentStatus = searchParams.get("status") || "all"
-  const currentLimit = LIMIT
 
   const totalPages = Math.ceil(totalGuides / currentLimit)
 
@@ -77,6 +87,7 @@ export function AllGuidesList() {
       if (response) {
         setGuides(response.data || [])
         setTotalGuides(response.meta?.total || 0)
+        setCurrentLimit(response.meta?.limit || LIMIT)
       }
     } catch (error) {
       console.error("Error fetching guides:", error)

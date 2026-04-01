@@ -1,6 +1,16 @@
 import { CategoriesList } from "@/components/admin/categories-list"
+import { getCategoriesAction } from "@/app/actions/admin/getCategoriesAction"
 
-export default function CategoriesPage() {
+interface PageProps {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export default async function CategoriesPage({ searchParams }: PageProps) {
+  const response = await getCategoriesAction(1, 10)
+
+  const initialCategories = response?.data?.data || []
+  const initialTotal = response?.data?.meta?.total || 0
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -12,7 +22,11 @@ export default function CategoriesPage() {
         </div>
       </div>
 
-      <CategoriesList />
+      <CategoriesList
+        initialCategories={initialCategories}
+        initialTotal={initialTotal}
+        initialPage={1}
+      />
     </div>
   )
 }

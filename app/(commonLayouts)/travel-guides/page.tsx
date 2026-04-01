@@ -1,8 +1,23 @@
 import * as React from "react"
 import { GuidesList } from "@/components/modules/member/guides-list"
-import SearchSection from "@/components/home/SearchSection"
+import travelGuideServices from "@/services/travelGuide/travelGuide.service"
 
-export default function TravelGuidesPage() {
+export default async function TravelGuidesPage() {
+  // Fetch initial guides data on server
+  const result = await travelGuideServices.getAll(1, 10)
+
+  const initialData = result.success
+    ? {
+        guides: result.data.data,
+        totalPages: result.data.meta.totalPages,
+        total: result.data.meta.total,
+      }
+    : {
+        guides: [],
+        totalPages: 0,
+        total: 0,
+      }
+
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -27,7 +42,7 @@ export default function TravelGuidesPage() {
             </div>
           }
         >
-          <GuidesList />
+          <GuidesList initialData={initialData} />
         </React.Suspense>
       </div>
     </div>

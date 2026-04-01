@@ -8,7 +8,7 @@ import { Menu, X, LogOut } from "lucide-react"
 import { useState } from "react"
 import swal from "sweetalert"
 import { UserInfo } from "@/types/user.types"
-import { logoutAction } from "@/app/actions/auth/logout"
+import { logoutActionForNavber } from "@/app/actions/auth/logout"
 
 interface NavbarProps {
   userInfo?: UserInfo | null
@@ -52,7 +52,7 @@ export function Navbar({ userInfo }: NavbarProps) {
 
     setIsLoggingOut(true)
     try {
-      await logoutAction()
+      await logoutActionForNavber()
     } catch (error) {
       console.error("Logout failed:", error)
       setIsLoggingOut(false)
@@ -83,7 +83,7 @@ export function Navbar({ userInfo }: NavbarProps) {
               <Link key={item.href} href={item.href}>
                 <Button
                   variant={isActive(item.href) ? "default" : "ghost"}
-                  className="font-medium"
+                  className="cursor-pointer font-medium"
                 >
                   {item.label}
                 </Button>
@@ -98,7 +98,7 @@ export function Navbar({ userInfo }: NavbarProps) {
               <Link key={item.href} href={item.href}>
                 <Button
                   variant={isActive(item.href) ? "default" : "outline"}
-                  className="font-medium"
+                  className="cursor-pointer font-medium"
                 >
                   {item.label}
                 </Button>
@@ -109,7 +109,7 @@ export function Navbar({ userInfo }: NavbarProps) {
               <Button
                 variant="outline"
                 onClick={handleLogout}
-                className="font-medium"
+                className="cursor-pointer font-medium"
                 disabled={isLoggingOut}
               >
                 <LogOut className="mr-2 h-4 w-4" />

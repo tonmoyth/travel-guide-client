@@ -15,7 +15,6 @@ interface StatsData {
 
 export default async function MemberDashboardPage() {
   const result = await getStats()
-  console.log("Member Dashboard Stats Result:", result) // Debug log
 
   if (!result.success) {
     return (

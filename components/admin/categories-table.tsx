@@ -29,6 +29,7 @@ export function CategoriesTable({
   onEditCategory,
   onDeleteCategory,
 }: CategoriesTableProps) {
+  console.log("Rendering CategoriesTable with categories:", categories)
   const handleEditCategory = (category: Category) => {
     console.log("Edit category:", category.id)
     onEditCategory?.(category)
@@ -49,6 +50,7 @@ export function CategoriesTable({
             <TableHead>Description</TableHead>
             <TableHead>Guides Count</TableHead>
             <TableHead>Created At</TableHead>
+
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>

@@ -151,12 +151,6 @@ interface TopVotedGuide {
   comments?: any[]
 }
 
-interface GetTopVotedGuidesResponse {
-  data: TopVotedGuide[]
-  success: boolean
-  message: string
-}
-
 const travelGuideServices = {
   getDrafts: async (
     page: number = 1,
@@ -476,18 +470,17 @@ const travelGuideServices = {
 
       const fullUrl = url.toString()
 
-      console.log("[travelGuideService.getAll] URL ->", fullUrl)
-
-      const cookieHeader = await refreshCookie()
+      // const cookieHeader = await refreshCookie()
 
       const response = await fetch(fullUrl, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          ...(cookieHeader ? { Cookie: cookieHeader } : {}),
+          // ...(cookieHeader ? { Cookie: cookieHeader } : {}),
         },
+        // cache: "force-cache",
         next: {
-          revalidate: 60,
+          revalidate: 5,
           tags: ["public-guides"],
         },
       })
@@ -557,18 +550,18 @@ const travelGuideServices = {
     }
   },
 
-  getTopVotedGuides: async (): Promise<GetTopVotedGuidesResponse> => {
+  getTopVotedGuides: async () => {
     try {
-      const cookieHeader = await refreshCookie()
-
+      // const cookieHeader = await refreshCookie()
       const response = await fetch(`${API_BASE_URL}/travel-guides/top-voted`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          ...(cookieHeader ? { Cookie: cookieHeader } : {}),
+          // ...(cookieHeader ? { Cookie: cookieHeader } : {}),
         },
+
         next: {
-          revalidate: 300, // Revalidate every 5 minutes for top voted guides
+          revalidate: 5, // Revalidate every 5 seconds
           tags: ["top-voted-guides"],
         },
       })
@@ -578,6 +571,7 @@ const travelGuideServices = {
       }
 
       const data: IResponse<TopVotedGuide[]> = await response.json()
+      console.log("Top voted guides response:", data.data)
 
       return {
         data: data.data || [],
@@ -591,6 +585,51 @@ const travelGuideServices = {
         success: false,
         message: error.message || "Failed to fetch top voted guides",
       }
+    }
+  },
+
+  createGuide: async (payload: {
+    title: string
+    description: string
+    categoryId: string
+    destination?: string
+    itinerary?: any[]
+    status?: string
+    isPaid?: boolean
+    price?: number
+    coverImage?: string
+    images?: string[]
+  }): Promise<DraftGuide> => {
+    try {
+      const url = new URL(`${API_BASE_URL}/travel-guides`)
+      const cookieHeader = await refreshCookie()
+
+      console.log("Creating guide with payload:", payload)
+
+      const response = await fetch(url.toString(), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(cookieHeader ? { Cookie: cookieHeader } : {}),
+        },
+        body: JSON.stringify(payload),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.message || "Failed to create guide")
+      }
+
+      const data: IResponse<DraftGuide> = await response.json()
+
+      if (!data.success) {
+        throw new Error(data.message || "Failed to create guide")
+      }
+
+      return data.data as DraftGuide
+    } catch (error: any) {
+      console.error("Failed to create guide:", error)
+      throw error
     }
   },
 }

@@ -55,6 +55,7 @@ export const statsService = {
         Cookie: await refreshCookie(),
       },
       credentials: "include",
+      cache: "no-store", // Ensure we always get fresh data for member stats
       next: { tags: ["member-stats"] },
     })
 

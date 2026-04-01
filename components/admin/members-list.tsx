@@ -11,15 +11,28 @@ import { Loader2 } from "lucide-react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { MembersFilters } from "./members-filters"
 
-export function MembersList() {
+interface MembersListProps {
+  initialMembers: Member[]
+  initialTotalPages: number
+  initialTotal: number
+  initialPage: number
+}
+
+export function MembersList({
+  initialMembers,
+  initialTotalPages,
+  initialTotal,
+  initialPage,
+}: MembersListProps) {
   const searchParams = useSearchParams()
   const router = useRouter()
+  const initialRenderRef = React.useRef(true)
 
-  const [members, setMembers] = React.useState<Member[]>([])
-  const [loading, setLoading] = React.useState(true)
-  const [currentPage, setCurrentPage] = React.useState(1)
-  const [totalPages, setTotalPages] = React.useState(0)
-  const [total, setTotal] = React.useState(0)
+  const [members, setMembers] = React.useState<Member[]>(initialMembers)
+  const [loading, setLoading] = React.useState(false)
+  const [currentPage, setCurrentPage] = React.useState(initialPage)
+  const [totalPages, setTotalPages] = React.useState(initialTotalPages)
+  const [total, setTotal] = React.useState(initialTotal)
 
   // Get filters from URL params
   const searchTerm = searchParams.get("searchTerm") || ""
@@ -70,9 +83,9 @@ export function MembersList() {
       )
 
       if (result) {
-        setMembers(result.data)
-        setTotalPages(result.meta.totalPages)
-        setTotal(result.meta.total)
+        setMembers((result as any)?.data || result?.data || [])
+        setTotalPages(result?.meta?.totalPages || 0)
+        setTotal(result?.meta?.total || 0)
       } else {
         toast.error("Failed to load members")
       }
@@ -84,9 +97,14 @@ export function MembersList() {
     }
   }, [currentPage, searchTerm, sort, role, status])
 
+  // Only fetch when page/params change after initial render
   React.useEffect(() => {
+    if (initialRenderRef.current) {
+      initialRenderRef.current = false
+      return
+    }
     fetchMembers()
-  }, [fetchMembers])
+  }, [currentPage, searchTerm, sort, role, status, fetchMembers])
 
   const handleSearch = (search: string) => {
     updateParams({ searchTerm: search })

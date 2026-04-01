@@ -13,20 +13,21 @@ interface GuideCardProps {
     category?: { title: string; slug: string }
     guideMedia?: Array<{ url: string; type: string }>
     votes?: Array<{ type: "UPVOTE" | "DOWNVOTE" | "UP" | "DOWN" }>
-    comments?: Array<{ id: string }>
+    comments?: Array<{ id: string; isDeleted?: boolean }>
     createdAt: string
   }
   authorName?: string
 }
 
 export function GuideCard({ guide, authorName }: GuideCardProps) {
-  const upvoteCount =
-    guide.votes?.filter((v) => v.type === "UPVOTE" || v.type === "UP").length ||
-    0
+  // const upvoteCount =
+  //   guide.votes?.filter((v) => v.type === "UPVOTE" || v.type === "UP").length ||
+  //   0
   const downvoteCount =
     guide.votes?.filter((v) => v.type === "DOWNVOTE" || v.type === "DOWN")
       .length || 0
-  const commentCount = guide.comments?.length || 0
+  const commentCount =
+    guide.comments?.filter((com) => !com.isDeleted).length || 0
 
   // Use cover image or first media image as fallback
   const imageUrl = guide.coverImage || guide.guideMedia?.[0]?.url

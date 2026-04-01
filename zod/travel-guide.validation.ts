@@ -31,13 +31,10 @@ export const TravelGuideValidationSchema = {
       return value
     }, z.boolean().optional().default(false)),
     price: z.number().positive("Price must be positive").optional(),
-    coverImage: z
-      .union([z.string().url("Invalid URL"), z.instanceof(File)])
-      .optional()
-      .or(z.literal("")),
-
-    // Additional fields for multiple images and video
-    images: z.array(z.instanceof(File)).optional(),
+    // Accept Cloudinary URLs instead of File objects
+    coverImage: z.string().url("Invalid URL").optional().or(z.literal("")),
+    // Array of Cloudinary image URLs
+    images: z.array(z.string().url("Invalid image URL")).optional(),
   }),
 }
 

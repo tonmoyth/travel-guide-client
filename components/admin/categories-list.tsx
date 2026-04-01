@@ -17,15 +17,26 @@ import { CategoryUpdateFormData } from "@/zod/category.validation"
 
 const LIMIT = 10
 
-export function CategoriesList() {
+interface CategoriesListProps {
+  initialCategories: Category[]
+  initialTotal: number
+  initialPage: number
+}
+
+export function CategoriesList({
+  initialCategories,
+  initialTotal,
+  initialPage,
+}: CategoriesListProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
   // State
-  const [categories, setCategories] = React.useState<Category[]>([])
-  const [isLoading, setIsLoading] = React.useState(true)
-  const [currentPage, setCurrentPage] = React.useState(1)
-  const [totalCategories, setTotalCategories] = React.useState(0)
+  const [categories, setCategories] =
+    React.useState<Category[]>(initialCategories)
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [currentPage, setCurrentPage] = React.useState(initialPage)
+  const [totalCategories, setTotalCategories] = React.useState(initialTotal)
   const [selectedCategory, setSelectedCategory] =
     React.useState<Category | null>(null)
   const [isEditModalOpen, setIsEditModalOpen] = React.useState(false)
@@ -99,6 +110,8 @@ export function CategoriesList() {
 
     if (!confirmed) return
 
+    const toastId = toast.loading("Deleting category...")
+
     setIsDeleting(true)
     try {
       const result = await deleteCategoryAction(categoryId)
@@ -110,7 +123,9 @@ export function CategoriesList() {
           icon: "success",
           buttons: ["OK"],
         })
-        toast.success(result.message || "Category deleted successfully")
+        toast.success(result.message || "Category deleted successfully", {
+          id: toastId,
+        })
 
         // Remove deleted category from list
         setCategories((prev) => prev.filter((c) => c.id !== categoryId))

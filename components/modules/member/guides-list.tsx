@@ -23,15 +23,25 @@ interface Guide {
   createdAt: string
 }
 
-export function GuidesList() {
+interface GuidesListProps {
+  initialData?: {
+    guides: Guide[]
+    totalPages: number
+    total: number
+  }
+}
+
+export function GuidesList({ initialData }: GuidesListProps) {
   const searchParams = useSearchParams()
   const router = useRouter()
 
-  const [guides, setGuides] = React.useState<Guide[]>([])
-  const [loading, setLoading] = React.useState(true)
+  const [guides, setGuides] = React.useState<Guide[]>(initialData?.guides || [])
+  const [loading, setLoading] = React.useState(!initialData)
   const [currentPage, setCurrentPage] = React.useState(1)
-  const [totalPages, setTotalPages] = React.useState(0)
-  const [total, setTotal] = React.useState(0)
+  const [totalPages, setTotalPages] = React.useState(
+    initialData?.totalPages || 0
+  )
+  const [total, setTotal] = React.useState(initialData?.total || 0)
 
   // Get filters from URL params
   const searchTerm = searchParams.get("searchTerm") || ""
@@ -117,7 +127,22 @@ export function GuidesList() {
     maxPrice,
   ])
 
+  // Fetch guides when parameters change (but not on initial mount if we have initialData)
   React.useEffect(() => {
+    if (
+      initialData &&
+      currentPage === 1 &&
+      !searchTerm &&
+      sort === "all" &&
+      categoryId === "all" &&
+      paid === "all" &&
+      status === "all" &&
+      !minPrice &&
+      !maxPrice
+    ) {
+      // Skip fetch if we have initial data and no filters applied
+      return
+    }
     fetchGuides()
   }, [fetchGuides])
 
