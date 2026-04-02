@@ -100,26 +100,6 @@ npm install
 pnpm install
 ```
 
-```env
-# API Configuration
-NEXT_PUBLIC_API_BASE_URL=http://localhost:5000
-
-# Authentication
-NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
-NEXT_PUBLIC_GOOGLE_CLIENT_SECRET=your_google_client_secret
-
-# Payment Integration (choose one)
-NEXT_PUBLIC_SSL_COMMERZ_STORE_ID=your_store_id
-NEXT_PUBLIC_SSL_COMMERZ_STORE_PASSWORD=your_store_password
-# OR
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_key
-# OR
-NEXT_PUBLIC_SHURJOPAY_API_KEY=your_api_key
-
-# Development
-NODE_ENV=development
-```
-
 ### 4. Database Setup
 
 Ensure your PostgreSQL database is running and configured with Prisma.
@@ -199,16 +179,6 @@ pnpm prisma:migrate     # Run database migrations
 pnpm prisma:studio      # Open Prisma Studio
 ```
 
-## 🌐 API Integration
-
-The frontend communicates with a REST API backend. Key endpoints include:
-
-- `POST /api/auth/login` - User authentication
-- `GET /api/v1/guides` - Fetch travel guides
-- `POST /api/v1/guides` - Create new guide
-- `PUT /api/v1/guides/:id/vote` - Vote on guide
-- `POST /api/v1/payment/initiate` - Initialize payment
-
 ## 🚀 Deployment
 
 ### Frontend (Vercel)
@@ -217,49 +187,10 @@ The frontend communicates with a REST API backend. Key endpoints include:
 2. Configure environment variables in Vercel dashboard
 3. Deploy automatically on push to main branch
 
-### Backend (Railway/Render)
+### Backend (Vercel)
 
 1. Deploy backend API to Railway or Render
 2. Update `NEXT_PUBLIC_API_BASE_URL` with production URL
 3. Configure database connection strings
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit changes: `git commit -m 'Add some feature'`
-4. Push to branch: `git push origin feature/your-feature`
-5. Open a Pull Request
-
-### Commit Guidelines
-
-- Use meaningful commit messages
-- Follow conventional commits format
-- Minimum 20 commits for project completion
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Support
-
-For support and questions:
-
-- Create an issue in this repository
-- Contact the development team
-- Check the documentation for common solutions
-
-## 🎥 Demo Video
-
-A 5-10 minute demonstration video is available showing:
-
-1. User registration and login
-2. Creating and submitting travel guides
-3. Viewing free and purchasing paid guides
-4. Voting and commenting system
-5. Admin dashboard and moderation
-6. Payment processing flow
-
----
 
 **Built with ❤️ for the travel community**

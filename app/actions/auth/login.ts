@@ -36,9 +36,9 @@ export const loginAction = async (
       "better-auth.session_token": token,
     })
 
-    if (!emailVerified) {
-      redirect(`/verify-email?email=${email}`)
-    }
+    // if (!emailVerified) {
+    //   redirect(`/verify-email?email=${email}`)
+    // }
 
     redirect(redirectPath || "/dashboard")
 

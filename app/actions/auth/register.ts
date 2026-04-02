@@ -33,7 +33,7 @@ export const registerAction = async (
     })
 
     const { accessToken, refreshToken, token, user } = response.data.data
-    const { email, emailVerified } = user
+    // const { email, emailVerified } = user
 
     await setTokenInCookie({
       accessToken: accessToken,
@@ -41,9 +41,9 @@ export const registerAction = async (
       "better-auth.session_token": token,
     })
 
-    if (!emailVerified) {
-      redirect(`/verify-email?email=${email}`)
-    }
+    // if (!emailVerified) {
+    //   redirect(`/verify-email?email=${email}`)
+    // }
 
     redirect("/login")
   } catch (error: any) {

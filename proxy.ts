@@ -144,7 +144,7 @@ export const config = {
     "/dashboard/:path*",
     "/change-password",
     "/my-profile",
-    // "/verify-email",
+
     "/login",
     "/register",
   ],
