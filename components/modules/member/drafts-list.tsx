@@ -13,6 +13,7 @@ import { submitGuideForReview } from "@/app/actions/member/update-guide-status"
 
 import { toast } from "sonner"
 import { deleteDraft } from "@/app/actions/member/delete-draft"
+import { Pagination } from "@/components/shared/Pagination"
 
 interface DraftsListProps {
   initialData: IQueryResult<DraftGuide>
@@ -127,43 +128,14 @@ export default function DraftsList({ initialData }: DraftsListProps) {
       </div>
 
       {/* Pagination */}
-      {meta && meta.totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 pt-8">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1 || isLoading}
-          >
-            Previous
-          </Button>
-
-          {/* Page Numbers */}
-          <div className="flex gap-1">
-            {Array.from({ length: meta.totalPages }, (_, i) => i + 1).map(
-              (page) => (
-                <Button
-                  key={page}
-                  variant={page === currentPage ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => handlePageChange(page)}
-                  disabled={isLoading}
-                  className="min-w-9"
-                >
-                  {page}
-                </Button>
-              )
-            )}
-          </div>
-
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === meta.totalPages || isLoading}
-          >
-            Next
-          </Button>
+      {meta && meta.totalPages >= 1 && (
+        <div className="flex justify-center pt-8">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={meta.totalPages}
+            onPageChange={handlePageChange}
+            isLoading={isLoading}
+          />
         </div>
       )}
 

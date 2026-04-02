@@ -33,14 +33,7 @@ export default async function MemberDashboardPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold tracking-tight">My Dashboard</h1>
-          <p className="mt-2 text-lg text-muted-foreground">
-            Create and manage your travel guides
-          </p>
-        </div>
-
+      <div className="mx-auto px-4 py-12 sm:px-6">
         {/* Stats Cards */}
         <div className="mb-8">
           <StatsCards stats={stats} />

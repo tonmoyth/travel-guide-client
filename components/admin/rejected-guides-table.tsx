@@ -29,7 +29,6 @@ export function RejectedGuidesTable({
   onApprove,
 }: RejectedGuidesTableProps) {
   const handleApprove = (guide: RejectedGuide) => {
-    console.log("Approve guide:", guide.id)
     onApprove?.(guide)
   }
 
@@ -50,24 +49,26 @@ export function RejectedGuidesTable({
           {guides.map((guide) => (
             <TableRow key={guide.id}>
               <TableCell className="max-w-xs font-medium">
-                <div className="truncate" title={guide.title}>
-                  {guide.title}
+                <div className="truncate" title={guide?.title}>
+                  {guide?.title}
                 </div>
               </TableCell>
               <TableCell>
-                <span className="text-sm">{guide.category.title}</span>
+                <span className="text-sm">{guide?.category?.title}</span>
               </TableCell>
               <TableCell>
-                <span className="font-semibold">${guide.price.toFixed(2)}</span>
+                <span className="font-semibold">
+                  ${guide?.price?.toFixed(2)}
+                </span>
               </TableCell>
               <TableCell>
                 <Badge variant="secondary" className="bg-red-100 text-red-800">
-                  {guide.status.replace(/_/g, " ")}
+                  {guide?.status?.replace(/_/g, " ")}
                 </Badge>
               </TableCell>
               <TableCell>
                 <span className="text-sm text-muted-foreground">
-                  {new Date(guide.createdAt).toLocaleDateString("en-US", {
+                  {new Date(guide?.createdAt).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "short",
                     day: "numeric",

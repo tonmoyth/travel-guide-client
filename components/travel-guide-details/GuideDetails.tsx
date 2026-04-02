@@ -83,7 +83,7 @@ export default async function GuideDetails({ id }: Props) {
         <div className="space-y-4">
           <h1 className="text-3xl font-bold">{guide.title}</h1>
           <div className="flex flex-col gap-2 text-sm text-gray-600 sm:flex-row sm:items-center sm:space-x-4">
-            <span className="rounded bg-blue-100 px-2 py-1 text-blue-800">
+            <span className="rounded bg-blue-100 px-2 py-1">
               {guide.category.title}
             </span>
             {guide.member && <span>By {guide.member.name}</span>}
@@ -105,7 +105,7 @@ export default async function GuideDetails({ id }: Props) {
           <div className="space-y-4 py-12 text-center">
             <h2 className="text-xl font-semibold">This guide is locked</h2>
             <p>Problem: {guide.description || "N/A"}</p>
-            <div className="mx-auto flex w-fit items-center gap-2 rounded-md border border-gray-200 bg-slate-50 px-3 py-2 text-sm text-gray-700">
+            <div className="mx-auto flex w-fit items-center gap-2 rounded-md border border-gray-200 px-3 py-2 text-sm text-gray-700">
               <Lock className="h-4 w-4" />
               <span>Locked content</span>
             </div>

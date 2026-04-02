@@ -43,7 +43,7 @@ export function ChangePasswordForm() {
           toast.error(result.message || "Failed to change password")
           return
         }
-        console.log("Password change result:", result)
+
         form.reset()
         toast.success("Password updated successfully. ")
       } catch (error: any) {
@@ -133,8 +133,8 @@ export function ChangePasswordForm() {
                 {loading ? "Saving..." : "Change Password"}
               </Button>
 
-              <Link href="/settings/account" className="text-primary underline">
-                Back to account settings
+              <Link href="/dashboard" className="text-primary underline">
+                Back to Dashbaord
               </Link>
             </CardFooter>
           </form>

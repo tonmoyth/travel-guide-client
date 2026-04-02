@@ -3,7 +3,6 @@ import PublishedList from "@/components/modules/member/published-list"
 
 export default async function PublishedPage() {
   const initialData = await getSubmission(1, 10)
-  console.log("Initial published guides data:", initialData) // Debug log
 
   return (
     <div className="min-h-screen bg-background">

@@ -29,7 +29,11 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+        >
           {children}
           <SonnerToaster />
         </ThemeProvider>

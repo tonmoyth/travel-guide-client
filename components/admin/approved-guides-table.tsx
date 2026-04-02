@@ -50,22 +50,24 @@ export function ApprovedGuidesTable({
           {guides.map((guide) => (
             <TableRow key={guide.id}>
               <TableCell className="max-w-xs font-medium">
-                <div className="truncate" title={guide.title}>
-                  {guide.title}
+                <div className="truncate" title={guide?.title}>
+                  {guide?.title}
                 </div>
               </TableCell>
               <TableCell>
-                <span className="text-sm">{guide.category.title}</span>
+                <span className="text-sm">{guide?.category?.title}</span>
               </TableCell>
               <TableCell>
-                <span className="font-semibold">${guide.price.toFixed(2)}</span>
+                <span className="font-semibold">
+                  ${guide?.price?.toFixed(2)}
+                </span>
               </TableCell>
               <TableCell>
                 <Badge
                   variant="secondary"
                   className="bg-green-100 text-green-800"
                 >
-                  {guide.status.replace(/_/g, " ")}
+                  {guide?.status?.replace(/_/g, " ")}
                 </Badge>
               </TableCell>
               <TableCell>

@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -13,6 +12,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { Button } from "../ui/button"
 
 interface GuideCard {
   id: string
@@ -81,7 +81,6 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
     )
   }
 
-  console.log("Rendering FeaturedGuides with guides:", transformedGuides)
   return (
     <section className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -160,7 +159,7 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
                   </div>
                   <Link href={`/travel-guides/${guide.id}`}>
                     <Button variant="outline" size="sm">
-                      View Guide
+                      View Details
                     </Button>
                   </Link>
                 </div>
@@ -170,9 +169,9 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
         </div>
 
         <div className="mt-12 text-center">
-          <Link href="/travel-guides">
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-              Explore All Guides
+          <Link href={`/travel-guides`}>
+            <Button variant="outline" size="sm">
+              View All Guides
             </Button>
           </Link>
         </div>

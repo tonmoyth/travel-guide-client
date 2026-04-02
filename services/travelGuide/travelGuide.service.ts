@@ -283,7 +283,6 @@ const travelGuideServices = {
   },
 
   deleteDraft: async (guideId: string): Promise<boolean> => {
-    console.log("Deleting guide with ID:", guideId)
     try {
       const url = new URL(`${API_BASE_URL}/travel-guides/${guideId}`)
       const cookieHeader = await refreshCookie()
@@ -490,7 +489,6 @@ const travelGuideServices = {
       }
 
       const data: IResponse<IQueryResult<DraftGuide>> = await response.json()
-      console.log("[travelGuideService.getAll] Response ->", data)
 
       return {
         data: data.data as IQueryResult<DraftGuide>,
@@ -514,6 +512,7 @@ const travelGuideServices = {
           ...(cookieHeader ? { Cookie: cookieHeader } : {}),
         },
       })
+      console.log("Fetch guide details response:", response)
 
       if (!response.ok) {
         return {
@@ -524,7 +523,6 @@ const travelGuideServices = {
       }
 
       const data: IResponse<GuideDetails> = await response.json()
-      console.log("Guide details response:", data.data)
 
       if (!data.success || !data.data) {
         return {
@@ -571,7 +569,6 @@ const travelGuideServices = {
       }
 
       const data: IResponse<TopVotedGuide[]> = await response.json()
-      console.log("Top voted guides response:", data.data)
 
       return {
         data: data.data || [],
@@ -603,8 +600,6 @@ const travelGuideServices = {
     try {
       const url = new URL(`${API_BASE_URL}/travel-guides`)
       const cookieHeader = await refreshCookie()
-
-      console.log("Creating guide with payload:", payload)
 
       const response = await fetch(url.toString(), {
         method: "POST",

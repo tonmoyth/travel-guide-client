@@ -44,7 +44,7 @@ export async function createGuideAction(
       }
     }
 
-    console.log("Creating guide with payload:", payload)
+  
 
     const result = await travelGuideServices.createGuide(payload)
 

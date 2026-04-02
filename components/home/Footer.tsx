@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Mail, Phone, MapPin, Share2, MessageCircle, Globe } from "lucide-react"
+import Image from "next/image"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -11,38 +12,24 @@ export default function Footer() {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 font-bold text-white">
-                TG
-              </div>
-              <span className="text-xl font-bold">TravelGuide</span>
+              {/* Logo */}
+              <Link href="/" className="flex items-center gap-2">
+                <Image
+                  src="/assets/logo.png"
+                  alt="Travel Guide Logo"
+                  width={100}
+                  height={100}
+                  className="rounded"
+                />
+                {/* <span className="text-xl font-bold text-foreground">
+              TravelGuide
+            </span> */}
+              </Link>
             </div>
             <p className="text-gray-300">
               Discover authentic travel experiences and connect with fellow
               adventurers worldwide. Your journey starts here.
             </p>
-            <div className="flex space-x-4">
-              <a
-                href="https://facebook.com/travelguide"
-                className="text-gray-400 transition hover:text-white"
-                aria-label="Facebook"
-              >
-                <Share2 className="h-5 w-5" />
-              </a>
-              <a
-                href="https://twitter.com/travelguide"
-                className="text-gray-400 transition hover:text-white"
-                aria-label="Twitter"
-              >
-                <MessageCircle className="h-5 w-5" />
-              </a>
-              <a
-                href="https://instagram.com/travelguide"
-                className="text-gray-400 transition hover:text-white"
-                aria-label="Instagram"
-              >
-                <Globe className="h-5 w-5" />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -128,31 +115,31 @@ export default function Footer() {
             <h3 className="mb-4 text-lg font-semibold">Contact Info</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-blue-400" />
+                <Mail className="h-5 w-5 text-[#1989A3]" />
                 <a
                   href="mailto:hello@travelguide.com"
                   className="text-gray-300 transition hover:text-white"
                 >
-                  hello@travelguide.com
+                  tonmoynht1930@gmail.com
                 </a>
               </div>
               <div className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-blue-400" />
+                <Phone className="h-5 w-5 text-[#1989A3]" />
                 <a
                   href="tel:+1234567890"
                   className="text-gray-300 transition hover:text-white"
                 >
-                  +1 (234) 567-8900
+                  +880 01407641417
                 </a>
               </div>
               <div className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-5 w-5 text-blue-400" />
+                <MapPin className="mt-0.5 h-5 w-5 text-[#1989A3]" />
                 <address className="text-gray-300 not-italic">
                   123 Travel Street
                   <br />
-                  Adventure City, AC 12345
+                  Dhaka,Gazipur
                   <br />
-                  United States
+                  Bangladesh
                 </address>
               </div>
             </div>

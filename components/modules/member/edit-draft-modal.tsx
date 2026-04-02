@@ -305,7 +305,7 @@ export default function EditDraftModal({
         )}
 
         {/* Cover Image */}
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <label className="text-sm font-medium">Cover Image</label>
           {coverImagePreview && (
             <div className="relative h-32 w-full overflow-hidden rounded-lg bg-muted">
@@ -325,7 +325,7 @@ export default function EditDraftModal({
           <p className="text-xs text-muted-foreground">
             PNG, JPG or GIF (max 5MB)
           </p>
-        </div>
+        </div> */}
 
         {/* Buttons */}
         <div className="flex gap-2 border-t pt-4">

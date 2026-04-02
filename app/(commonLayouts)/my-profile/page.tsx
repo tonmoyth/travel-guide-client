@@ -4,7 +4,7 @@ import { MyProfileCard } from "@/components/modules/profile/my-profile-card"
 export default async function MyProfilePage() {
   const user = await getUserInfo()
 
-  console.log("User info in MyProfilePage:", user)
+
 
   return (
     <div className="min-h-screen bg-background">

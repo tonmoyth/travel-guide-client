@@ -22,9 +22,6 @@ const newsLetterService = {
     try {
       const cookieHeader = await refreshCookie()
 
-      console.log("Subscribing to newsletter with API_BASE_URL:", API_BASE_URL)
-      console.log("Payload:", payload)
-
       const response = await fetch(`${API_BASE_URL}/newsletter/subscribe`, {
         method: "POST",
         headers: {
@@ -33,8 +30,6 @@ const newsLetterService = {
         },
         body: JSON.stringify(payload),
       })
-
-      console.log("Newsletter subscription response status:", response.status)
 
       if (!response.ok) {
         const errorData = await response.json()

@@ -31,16 +31,24 @@ import {
   GuideStatus,
 } from "@/zod/travel-guide.validation"
 import { createGuideAction } from "@/actions/travel-guide/createGuideAction"
+import imageCompression from "browser-image-compression"
 
-// Cloudinary upload function
 const uploadToCloudinary = async (file: File): Promise<string> => {
-  const formData = new FormData()
-  formData.append("file", file)
-  // Important: Only add upload_preset, NOT cloud_name in FormData
-  // cloud_name goes in the URL only
-  formData.append("upload_preset", "travel-guides") // Use unsigned preset (create one in Cloudinary dashboard)
+  // 🔥 Step 1: compress image
+  const compressedFile = await imageCompression(file, {
+    maxSizeMB: 1, // 1MB এর মধ্যে রাখবে
+    maxWidthOrHeight: 1280,
+    useWebWorker: true,
+  })
 
-  const cloudName = "dsblzzfib" // Replace with YOUR cloud name
+  const formData = new FormData()
+  formData.append("file", compressedFile)
+  formData.append("upload_preset", "travel-guides")
+
+  const cloudName = "dsblzzfib"
+  if (file.size > 5 * 1024 * 1024) {
+    throw new Error("File too large! Max 5MB allowed.")
+  }
 
   const response = await fetch(
     `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
@@ -59,7 +67,7 @@ const uploadToCloudinary = async (file: File): Promise<string> => {
   }
 
   const data = await response.json()
-  return data.secure_url // Return the secure URL of the uploaded image
+  return data.secure_url
 }
 
 interface Category {

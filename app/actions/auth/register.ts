@@ -40,7 +40,6 @@ export const registerAction = async (
       refreshToken: refreshToken,
       "better-auth.session_token": token,
     })
-    console.log(emailVerified)
 
     if (!emailVerified) {
       redirect(`/verify-email?email=${email}`)
@@ -48,7 +47,6 @@ export const registerAction = async (
 
     redirect("/login")
   } catch (error: any) {
-    console.log(error)
     if (
       error &&
       typeof error === "object" &&

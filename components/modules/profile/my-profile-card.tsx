@@ -35,7 +35,7 @@ export function MyProfileCard({ user }: MyProfileCardProps) {
           <div className="relative">
             {profileImage ? (
               <img
-                src={profileImage}
+                src={`https://i.ibb.co.com/mFqdcTzQ/vector-flat-illustration-grayscale-avatar-user-profile-person-icon-gender-neutral-silhouette-profile.avif`}
                 alt="profile"
                 className="h-28 w-28 rounded-full border border-border object-cover"
               />

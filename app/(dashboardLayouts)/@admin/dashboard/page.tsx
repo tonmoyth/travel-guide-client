@@ -35,7 +35,7 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4 py-12 sm:px-6">
         <div className="mb-8">
           <h1 className="text-4xl font-bold tracking-tight">Admin Dashboard</h1>
           <p className="mt-2 text-lg text-muted-foreground">

@@ -5,6 +5,7 @@ import Testimonials from "@/components/home/Testimonials"
 import Newsletter from "@/components/home/Newsletter"
 import Footer from "@/components/home/Footer"
 import travelGuideServices from "@/services/travelGuide/travelGuide.service"
+import WhyChooseUs from "@/components/home/WhyChooseUs"
 
 // export const revalidate = 30
 
@@ -19,9 +20,8 @@ export default async function Home() {
       <Hero />
       <SearchSection />
       <FeaturedGuides guides={guides} />
-      {/* <Testimonials /> */}
+      <WhyChooseUs></WhyChooseUs>
       <Newsletter />
-      <Footer />
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import Footer from "@/components/home/Footer"
 import NavbarWrapper from "@/components/navber/NavbarWrapper"
 
 export default function CommonLayout({
@@ -9,6 +10,7 @@ export default function CommonLayout({
     <>
       <NavbarWrapper />
       {children}
+      <Footer />
     </>
   )
 }

@@ -2,10 +2,11 @@
 
 import { getSubmission } from "@/app/actions/member/getSubmission"
 import { DraftGuide, IQueryResult } from "@/app/actions/member/get-drafts"
-import { Button } from "@/components/ui/button"
 import PublishedCard from "./published-card"
 import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
+import { Pagination } from "@/components/shared/Pagination"
+import { Loader2 } from "lucide-react"
 
 interface PublishedListProps {
   initialData: IQueryResult<DraftGuide>
@@ -48,6 +49,12 @@ export default function PublishedList({ initialData }: PublishedListProps) {
 
   return (
     <div className="space-y-8">
+      {isLoading && (
+        <div className="flex items-center justify-center py-8">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      )}
+
       {/* Cards Grid */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {guides.map((guide) => (
@@ -56,43 +63,14 @@ export default function PublishedList({ initialData }: PublishedListProps) {
       </div>
 
       {/* Pagination */}
-      {meta && meta.totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 pt-8">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1 || isLoading}
-          >
-            Previous
-          </Button>
-
-          {/* Page Numbers */}
-          <div className="flex gap-1">
-            {Array.from({ length: meta.totalPages }, (_, i) => i + 1).map(
-              (page) => (
-                <Button
-                  key={page}
-                  variant={page === currentPage ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => handlePageChange(page)}
-                  disabled={isLoading}
-                  className="min-w-9"
-                >
-                  {page}
-                </Button>
-              )
-            )}
-          </div>
-
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === meta.totalPages || isLoading}
-          >
-            Next
-          </Button>
+      {meta && meta.totalPages >= 1 && (
+        <div className="flex justify-center pt-8">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={meta.totalPages}
+            onPageChange={handlePageChange}
+            isLoading={isLoading}
+          />
         </div>
       )}
 

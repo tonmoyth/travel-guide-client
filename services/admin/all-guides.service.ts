@@ -104,7 +104,7 @@ export const allGuidesService = {
         Cookie: await refreshCookie(),
       },
       credentials: "include",
-      next: { revalidate: 30, tags: ["all-guides"] },
+      // next: { revalidate: 30, tags: ["all-guides"] },
     })
 
     if (!response.ok) {

@@ -27,7 +27,7 @@ interface StatsChartsProps {
   stats: StatsData
 }
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"]
+const COLORS = ["#1989A3", "#00C49F", "#1989A3", "#FF8042"]
 
 export function StatsCharts({ stats }: StatsChartsProps) {
   const isAdmin = "totalUsers" in stats
@@ -42,7 +42,7 @@ export function StatsCharts({ stats }: StatsChartsProps) {
 
     return (
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-lg border bg-card p-6">
+        <div className="rounded-lg border bg-card">
           <h3 className="mb-4 text-lg font-semibold">Platform Overview</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={data}>
@@ -50,7 +50,7 @@ export function StatsCharts({ stats }: StatsChartsProps) {
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="value" fill="#8884d8" />
+              <Bar dataKey="value" fill="#1989A3" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -68,7 +68,7 @@ export function StatsCharts({ stats }: StatsChartsProps) {
                   `${name} ${((percent || 0) * 100).toFixed(0)}%`
                 }
                 outerRadius={80}
-                fill="#8884d8"
+                fill="#1989A3"
                 dataKey="value"
               >
                 {data.map((entry, index) => (

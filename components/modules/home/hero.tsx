@@ -1,3 +1,4 @@
+import Button from "@/components/shared/Button"
 import Link from "next/link"
 
 export default function Hero() {
@@ -15,11 +16,14 @@ export default function Hero() {
           Discover local insights and complete travel guides from a like-minded
           community. Plan trips with confidence and explore the world smarter.
         </p>
-        <Link href="/travel-guides" className="mt-8">
-          <button className="cursor-pointer rounded-full bg-primary px-8 py-3 text-base font-semibold text-primary-foreground shadow-lg transition hover:scale-[1.02] hover:bg-primary/90">
-            See Travel Guides
-          </button>
-        </Link>
+
+        <div className="mt-3">
+          <Button
+            href="/travel-guides"
+            label="Explore Travel Guides"
+            variant="primary"
+          />
+        </div>
       </div>
     </section>
   )

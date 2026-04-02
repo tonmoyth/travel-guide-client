@@ -43,10 +43,10 @@ export function GuideCard({ guide, onView, onRemove }: GuideCardProps) {
     <Card className="flex h-full flex-col overflow-hidden transition-all hover:shadow-lg">
       {/* Cover Image */}
       <div className="relative h-48 w-full bg-muted">
-        {guide.coverImage ? (
+        {guide?.coverImage ? (
           <Image
-            src={guide.coverImage}
-            alt={guide.title}
+            src={guide?.coverImage}
+            alt={guide?.title}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -59,9 +59,9 @@ export function GuideCard({ guide, onView, onRemove }: GuideCardProps) {
         {/* Status Badge */}
         <div className="absolute top-2 right-2">
           <div
-            className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${getStatusColor(guide.status)}`}
+            className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${getStatusColor(guide?.status)}`}
           >
-            {getStatusLabel(guide.status)}
+            {getStatusLabel(guide?.status)}
           </div>
         </div>
       </div>
@@ -71,10 +71,10 @@ export function GuideCard({ guide, onView, onRemove }: GuideCardProps) {
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1">
             <h3 className="line-clamp-2 text-lg leading-tight font-semibold">
-              {guide.title}
+              {guide?.title}
             </h3>
             <p className="mt-1 text-sm text-muted-foreground">
-              {guide.category.title}
+              {guide?.category?.title}
             </p>
           </div>
         </div>
@@ -83,14 +83,14 @@ export function GuideCard({ guide, onView, onRemove }: GuideCardProps) {
       <CardContent className="space-y-3">
         {/* Description */}
         <p className="line-clamp-2 text-sm text-muted-foreground">
-          {guide.description}
+          {guide?.description}
         </p>
 
         {/* Price */}
         <div className="flex items-center justify-between">
           <span className="text-sm text-muted-foreground">Price</span>
           <span className="text-lg font-semibold">
-            ${guide.price.toFixed(2)}
+            ${guide?.price?.toFixed(2)}
           </span>
         </div>
 
@@ -101,7 +101,6 @@ export function GuideCard({ guide, onView, onRemove }: GuideCardProps) {
             size="sm"
             className="flex-1 gap-2"
             onClick={() => {
-              console.log("View guide:", guide.id)
               onView?.(guide)
             }}
           >
@@ -118,7 +117,6 @@ export function GuideCard({ guide, onView, onRemove }: GuideCardProps) {
             <DropdownMenuContent align="end">
               <DropdownMenuItem
                 onClick={() => {
-                  console.log("Remove guide:", guide.id)
                   onRemove?.(guide.id)
                 }}
                 className="text-destructive focus:text-destructive"

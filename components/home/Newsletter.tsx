@@ -53,11 +53,11 @@ export default function Newsletter() {
   }
 
   return (
-    <section className="bg-blue-600 py-16">
+    <section className="bg-gradient-to-r from-[#5B2EFF]/8 to-[#8A63D2]/8 py-16">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <Card className="bg-white">
           <CardContent className="p-8 text-center">
-            <Mail className="mx-auto h-12 w-12 text-blue-600" />
+            <Mail className="mx-auto h-12 w-12 text-[#1989A3]" />
 
             <h2 className="mt-4 text-3xl font-bold text-gray-900">
               Stay Updated with TravelGuide
@@ -113,14 +113,14 @@ export default function Newsletter() {
                 By subscribing, you agree to our{" "}
                 <a
                   href="/privacy-policy"
-                  className="text-blue-600 hover:underline"
+                  className="text-[#1989A3] hover:underline"
                 >
                   Privacy Policy
                 </a>{" "}
                 and{" "}
                 <a
                   href="/terms-of-service"
-                  className="text-blue-600 hover:underline"
+                  className="text-[#1989A3] hover:underline"
                 >
                   Terms of Service
                 </a>

@@ -31,12 +31,10 @@ export function PendingGuidesTable({
   onReject,
 }: PendingGuidesTableProps) {
   const handleApprove = (guide: PendingGuide) => {
-    console.log("Approve guide:", guide.id)
     onApprove?.(guide)
   }
 
   const handleReject = (guide: PendingGuide) => {
-    console.log("Reject guide:", guide.id)
     onReject?.(guide)
   }
 
@@ -57,27 +55,29 @@ export function PendingGuidesTable({
           {guides.map((guide) => (
             <TableRow key={guide.id}>
               <TableCell className="max-w-xs font-medium">
-                <div className="truncate" title={guide.title}>
+                <div className="truncate" title={guide?.title}>
                   {guide.title}
                 </div>
               </TableCell>
               <TableCell>
-                <span className="text-sm">{guide.category.title}</span>
+                <span className="text-sm">{guide?.category?.title}</span>
               </TableCell>
               <TableCell>
-                <span className="font-semibold">${guide.price.toFixed(2)}</span>
+                <span className="font-semibold">
+                  ${guide?.price?.toFixed(2)}
+                </span>
               </TableCell>
               <TableCell>
                 <Badge
                   variant="secondary"
                   className="bg-blue-100 text-blue-800"
                 >
-                  {guide.status.replace(/_/g, " ")}
+                  {guide?.status?.replace(/_/g, " ")}
                 </Badge>
               </TableCell>
               <TableCell>
                 <span className="text-sm text-muted-foreground">
-                  {new Date(guide.createdAt).toLocaleDateString("en-US", {
+                  {new Date(guide?.createdAt).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "short",
                     day: "numeric",

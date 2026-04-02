@@ -22,12 +22,15 @@ import {
 } from "../ui/table"
 import { toast } from "sonner"
 import swal from "sweetalert"
+import { useRouter } from "next/navigation"
+
 interface MembersTableProps {
   members: Member[]
 }
 
 export function MembersTable({ members }: MembersTableProps) {
   const [updatingMembers, setUpdatingMembers] = useState<Set<string>>(new Set())
+  const router = useRouter()
 
   const handleStatusUpdate = async (
     memberId: string,
@@ -45,6 +48,7 @@ export function MembersTable({ members }: MembersTableProps) {
 
     setUpdatingMembers((prev) => new Set(prev).add(memberId))
 
+    const toastId = toast.loading(`Updating member status to ${status}...`)
     try {
       const formData = new FormData()
       formData.append("memberId", memberId)
@@ -52,12 +56,18 @@ export function MembersTable({ members }: MembersTableProps) {
       const result = await updateMemberStatusAction(formData)
 
       if (result.success) {
-        toast.success(`Member status updated to ${status} successfully!`)
+        toast.success(`Member status updated to ${status} successfully!`, {
+          id: toastId,
+        })
       } else {
-        toast.error(result.error || "Failed to update member status")
+        toast.error(result.error || "Failed to update member status", {
+          id: toastId,
+        })
       }
     } catch (error) {
-      toast.error("An error occurred while updating member status")
+      toast.error("An error occurred while updating member status", {
+        id: toastId,
+      })
     } finally {
       setUpdatingMembers((prev) => {
         const newSet = new Set(prev)

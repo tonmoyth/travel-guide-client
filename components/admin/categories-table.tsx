@@ -29,14 +29,11 @@ export function CategoriesTable({
   onEditCategory,
   onDeleteCategory,
 }: CategoriesTableProps) {
-  console.log("Rendering CategoriesTable with categories:", categories)
   const handleEditCategory = (category: Category) => {
-    console.log("Edit category:", category.id)
     onEditCategory?.(category)
   }
 
   const handleDeleteCategory = (categoryId: string) => {
-    console.log("Delete category:", categoryId)
     onDeleteCategory?.(categoryId)
   }
 

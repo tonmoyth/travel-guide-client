@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card"
 import Image from "next/image"
 import { useState } from "react"
 import ViewDraftModal from "@/components/modules/member/view-draft-modal"
+import { Button } from "@/components/ui/button"
 
 interface UnderReviewCardProps {
   guide: DraftGuide
@@ -61,13 +62,13 @@ export default function UnderReviewCard({ guide }: UnderReviewCardProps) {
             })}
           </p>
 
-          <button
+          <Button
             type="button"
-            className="mt-auto rounded bg-slate-800 px-3 py-2 text-sm font-medium text-white hover:bg-slate-900"
+            className="mt-auto cursor-pointer rounded bg-[#1989A3] px-3 py-2 text-sm font-medium text-white hover:bg-[#1989A3]/90"
             onClick={() => setIsViewModalOpen(true)}
           >
             View Details
-          </button>
+          </Button>
         </div>
       </Card>
 

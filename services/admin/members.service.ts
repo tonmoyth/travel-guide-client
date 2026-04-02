@@ -105,8 +105,8 @@ export const membersService = {
         "Content-Type": "application/json",
         Cookie: await refreshCookie(),
       },
+      cache: "no-store",
       credentials: "include",
-      next: { tags: ["members"] },
     })
 
     if (!response.ok) {

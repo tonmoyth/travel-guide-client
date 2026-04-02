@@ -12,7 +12,7 @@ export default async function CategoriesPage({ searchParams }: PageProps) {
   const initialTotal = response?.data?.meta?.total || 0
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-4 lg:p-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Categories</h1>

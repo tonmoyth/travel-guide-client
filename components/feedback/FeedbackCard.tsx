@@ -60,8 +60,6 @@ export function FeedbackCard({ feedback, guide }: FeedbackCardProps) {
     }
   }
 
-  console.log("Guide data in FeedbackCard:", guide.status) // Debug log
-
   return (
     <Card>
       <CardHeader>

@@ -35,12 +35,12 @@ export function AllGuidesList({
   const [isLoading, setIsLoading] = React.useState(false)
   const [currentPage, setCurrentPage] = React.useState(initialPage)
   const [totalGuides, setTotalGuides] = React.useState(initialTotal)
-  const [currentLimit, setCurrentLimit] = React.useState(LIMIT)
   const [selectedGuide, setSelectedGuide] = React.useState<Guide | null>(null)
   const [isModalOpen, setIsModalOpen] = React.useState(false)
 
   const currentSort = searchParams.get("sort") || "all"
   const currentStatus = searchParams.get("status") || "all"
+  const currentLimit = LIMIT
 
   const totalPages = Math.ceil(totalGuides / currentLimit)
 
@@ -87,7 +87,6 @@ export function AllGuidesList({
       if (response) {
         setGuides(response.data || [])
         setTotalGuides(response.meta?.total || 0)
-        setCurrentLimit(response.meta?.limit || LIMIT)
       }
     } catch (error) {
       console.error("Error fetching guides:", error)
@@ -141,6 +140,7 @@ export function AllGuidesList({
     })
 
     if (!confirmed) return
+    const toastId = toast.loading("Deleting guide...")
 
     setIsLoading(true)
     try {
@@ -153,9 +153,16 @@ export function AllGuidesList({
           icon: "success",
           buttons: ["OK"],
         })
-        toast.success(result.message || "Guide deleted successfully")
+        toast.success(result.message || "Guide deleted successfully", {
+          id: toastId,
+        })
+
+        router.push("/dashboard/all-guides")
       } else {
-        toast.error(result?.message || "Failed to delete guide")
+        toast.error(result?.message || "Failed to delete guide", {
+          id: toastId,
+        })
+        return
       }
 
       await fetchGuides()
@@ -210,7 +217,7 @@ export function AllGuidesList({
       {/* Guides Grid */}
       {!isLoading && guides.length > 0 && (
         <>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {guides.map((guide) => (
               <GuideCard
                 key={guide.id}

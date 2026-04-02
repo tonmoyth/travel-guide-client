@@ -83,6 +83,7 @@ export function RejectedGuidesList() {
     })
 
     if (!confirmed) return
+    const taostId = toast.loading("Approving guide...")
 
     setIsProcessing(true)
     try {
@@ -95,17 +96,21 @@ export function RejectedGuidesList() {
           icon: "success",
           buttons: ["OK"],
         })
-        toast.success(result.message || "Guide approved successfully")
+        toast.success(result.message || "Guide approved successfully", {
+          id: taostId,
+        })
 
         // Remove approved guide from list
         setGuides((prev) => prev.filter((g) => g.id !== guide.id))
         setTotalGuides((prev) => Math.max(0, prev - 1))
       } else {
-        toast.error(result?.message || "Failed to approve guide")
+        toast.error(result?.message || "Failed to approve guide", {
+          id: taostId,
+        })
       }
     } catch (error) {
       console.error("Error approving guide:", error)
-      toast.error("Failed to approve guide")
+      toast.error("Failed to approve guide", { id: taostId })
       void swal({
         title: "Error",
         text: "An error occurred while approving guide.",

@@ -29,9 +29,6 @@ const paymentService = {
     try {
       const cookieHeader = await refreshCookie()
 
-      console.log("Creating payment session with API_BASE_URL:", API_BASE_URL)
-      console.log("Payload:", payload)
-
       const response = await fetch(`${API_BASE_URL}/payments/create-session`, {
         method: "POST",
         headers: {
@@ -40,8 +37,6 @@ const paymentService = {
         },
         body: JSON.stringify(payload),
       })
-
-      console.log("Payment response status:", response.status)
 
       if (!response.ok) {
         const errorData = await response.json()
