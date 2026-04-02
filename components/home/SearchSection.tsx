@@ -18,40 +18,6 @@ export default function SearchSection() {
   const pathname = usePathname()
   const [searchTerm, setSearchTerm] = useState("")
   const [category, setCategory] = useState("all")
-  const [categories, setCategories] = useState<
-    {
-      id: string
-      title: string
-      slug?: string
-    }[]
-  >([])
-
-  useEffect(() => {
-    const loadCategories = async () => {
-      try {
-        const response = await axiosInstance.get("/categories")
-
-        let data: any[] = []
-        if (response?.data?.data && Array.isArray(response.data.data)) {
-          data = response.data.data
-        } else if (Array.isArray(response.data)) {
-          data = response.data
-        }
-
-        const normalized = data.map((cat: any) => ({
-          id: String(cat.id || cat._id || cat.slug || cat.title || cat.name),
-          title: cat.title || cat.name || String(cat.slug || cat.id || ""),
-          slug: cat.slug,
-        }))
-
-        setCategories(normalized)
-      } catch (error) {
-        console.error("SearchSection: failed to load categories", error)
-      }
-    }
-
-    loadCategories()
-  }, [])
 
   const handleSearch = () => {
     const params = new URLSearchParams()
@@ -59,7 +25,6 @@ export default function SearchSection() {
     if (searchTerm.trim()) {
       params.set("searchTerm", searchTerm.trim())
     }
-
     if (category && category !== "all") {
       params.set("categoryId", category)
     }

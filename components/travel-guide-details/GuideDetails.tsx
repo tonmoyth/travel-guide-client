@@ -102,7 +102,7 @@ export default async function GuideDetails({ id }: Props) {
 
         {/* Main Content */}
         {guide.locked ? (
-          <div className="space-y-4 py-12 text-center">
+          <div className="min-h-screen space-y-4 py-12 text-center">
             <h2 className="text-xl font-semibold">This guide is locked</h2>
             <p>Problem: {guide.description || "N/A"}</p>
             <div className="mx-auto flex w-fit items-center gap-2 rounded-md border border-gray-200 px-3 py-2 text-sm text-gray-700">
