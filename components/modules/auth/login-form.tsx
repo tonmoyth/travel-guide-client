@@ -226,15 +226,15 @@ export function LoginForm({ redirectPath }: { redirectPath?: string }) {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-outline-variant/20" />
             </div>
-            <div className="relative flex justify-center text-xs font-semibold uppercase tracking-widest">
+            {/* <div className="relative flex justify-center text-xs font-semibold uppercase tracking-widest">
               <span className=" px-4 text-on-surface-variant ">
                 Or continue with
               </span>
-            </div>
+            </div> */}
           </div>
 
           {/* Social Buttons */}
-          <div className="w-full">
+          {/* <div className="w-full">
             <button
               type="button"
               disabled={googleLoading}
@@ -267,7 +267,7 @@ export function LoginForm({ redirectPath }: { redirectPath?: string }) {
                 {googleLoading ? "Connecting..." : "Google"}
               </span>
             </button>
-          </div>
+          </div> */}
 
           {/* Footer Link */}
           <p className="mt-12 text-center text-on-surface-variant">

@@ -214,7 +214,7 @@ export function Navbar({ userInfo }: NavbarProps) {
                       handleLogout()
                     }}
                     disabled={isLoggingOut}
-                    className="flex w-full items-center space-x-2 rounded-full bg-linear-to-r from-error to-error/80 px-6 py-3 font-bold text-white shadow-lg disabled:opacity-50"
+                    className="flex items-center space-x-2 rounded-full bg-linear-to-r from-primary to-primary-container px-6 py-2.5 font-bold text-white shadow-lg transition-all hover:opacity-90 active:scale-95 focus:outline-none disabled:opacity-50"
                   >
                     <LogOut className="h-4 w-4" />
                     <span>{isLoggingOut ? "Logging out..." : "Logout"}</span>

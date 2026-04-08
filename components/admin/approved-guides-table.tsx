@@ -29,7 +29,7 @@ export function ApprovedGuidesTable({
   onRejectGuide,
 }: ApprovedGuidesTableProps) {
   const handleRejectGuide = (guide: ApprovedGuide) => {
-    console.log("Reject guide:", guide.id)
+
     onRejectGuide?.(guide)
   }
 

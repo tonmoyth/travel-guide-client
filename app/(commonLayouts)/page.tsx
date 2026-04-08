@@ -21,8 +21,7 @@ export default async function Home() {
     response.success && response.data ? response.data.slice(3, 7) : [];
 
 
-  console.log("guides", guides);
-  console.log("FeaturedGuidesData", FeaturedGuidesData);
+
 
 
   return (

@@ -44,7 +44,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
       const result = await logoutAction()
 
       if (!result.success) {
-        toast.error(result.message || "Unable to logout")
+
         setIsLoggingOut(false)
         return
       }
@@ -52,8 +52,8 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
       toast.success("Logged out successfully")
       // redirect is handled inside logoutAction
     } catch (error: any) {
-      console.error("Logout error:", error)
-      toast.error(error?.message || "Logout failed")
+
+
       setIsLoggingOut(false)
     }
   }

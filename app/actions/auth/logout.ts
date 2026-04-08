@@ -42,9 +42,8 @@ export const logoutAction = async (): Promise<ILogoutResponse> => {
 
     return {
       success: false,
-      message: `Logout failed: ${
-        error?.response?.data?.message || error?.message || "Unknown error"
-      }`,
+      message: `Logout failed: ${error?.response?.data?.message || error?.message || "Unknown error"
+        }`,
     }
   }
 }
@@ -77,9 +76,8 @@ export const logoutActionForNavber = async (): Promise<ILogoutResponse> => {
 
     return {
       success: false,
-      message: `Logout failed: ${
-        error?.response?.data?.message || error?.message || "Unknown error"
-      }`,
+      message: `Logout failed: ${error?.response?.data?.message || error?.message || "Unknown error"
+        }`,
     }
   }
 }

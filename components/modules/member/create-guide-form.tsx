@@ -98,7 +98,7 @@ export function CreateGuideForm({ categories }: CreateGuideFormProps) {
       images: [],
     },
     onSubmit: async ({ value }) => {
-      console.log("Form submitted with value:", value)
+
       setLoading(true)
       try {
         // Upload files to Cloudinary first
@@ -139,11 +139,11 @@ export function CreateGuideForm({ categories }: CreateGuideFormProps) {
           images: imageUrls.length > 0 ? imageUrls : undefined,
         }
 
-        console.log("Final payload with Cloudinary URLs:", payload)
+
 
         const parsedPayload =
           TravelGuideValidationSchema.create.safeParse(payload)
-        console.log("Parsed payload:", parsedPayload)
+
 
         if (!parsedPayload.success) {
           toast.error(parsedPayload.error.issues[0].message)
@@ -166,7 +166,7 @@ export function CreateGuideForm({ categories }: CreateGuideFormProps) {
           images: imageUrls.length > 0 ? imageUrls : undefined,
         }
 
-        console.log("Sending request data:", requestData)
+
 
         toast.info("Creating travel guide...")
         const res = await createGuideAction(requestData)
@@ -262,9 +262,9 @@ export function CreateGuideForm({ categories }: CreateGuideFormProps) {
                               >
                                 {String(
                                   category?.title ||
-                                    category?.name ||
-                                    category ||
-                                    "Unnamed"
+                                  category?.name ||
+                                  category ||
+                                  "Unnamed"
                                 )}
                               </SelectItem>
                             )

@@ -45,7 +45,7 @@ function PaymentContent() {
       try {
         const response = await travelGuideServices.getById(guideId)
         if (response.success && response.data) {
-          console.log("response.data", response.data)
+
           setGuide(response.data as GuideDetails)
         } else {
           setError("Failed to fetch guide details")

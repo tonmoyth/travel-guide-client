@@ -88,7 +88,7 @@ export default function WhyChooseUs() {
               width={800}
               height={1000}
               className="aspect-[4/5] object-cover"
-              src="https://i.ibb.co.com/RT7YJQ1n/back-view-island-outdoors-tree-standing.jpg"
+              src={`/assets/whyChooseImage.jpg`}
             />
           </div>
 

@@ -23,7 +23,7 @@ export default async function GuideDetails({ id }: Props) {
       console.error("Error fetching guide:", error);
       return { success: false, data: null };
     });
-    console.log("guideResponse", guideResponse);
+
 
     if (!guideResponse.success || !guideResponse.data) {
       return (

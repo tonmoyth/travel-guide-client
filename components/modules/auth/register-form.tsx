@@ -111,7 +111,7 @@ export function RegisterForm({ redirectPath }: { redirectPath?: string }) {
           </header>
 
           {/* Social Register Section */}
-          <div className="mb-8 w-full">
+          {/* <div className="mb-8 w-full">
             <button
               type="button"
               className="group flex w-full items-center justify-center gap-3 rounded-xl border border-outline-variant py-3.5 px-4 transition-colors hover:bg-surface-container-low"
@@ -138,7 +138,7 @@ export function RegisterForm({ redirectPath }: { redirectPath?: string }) {
                 Google
               </span>
             </button>
-          </div>
+          </div> */}
 
           <div className="relative mb-8 flex items-center justify-center">
             <div className="absolute inset-0 flex items-center">
