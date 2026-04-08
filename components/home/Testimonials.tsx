@@ -1,111 +1,91 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Star, Quote } from "lucide-react"
+import Image from "next/image"
 
-interface TestimonialCard {
-  id: string
-  title: string
-  author: string
-  rating: number
-  votes: number
-  excerpt: string
-  category: string
-}
-
-const topGuides: TestimonialCard[] = [
+const testimonials = [
   {
-    id: "1",
-    title: "Ultimate Tokyo Experience",
-    author: "Sarah Chen",
-    rating: 4.9,
-    votes: 1247,
-    excerpt:
-      "This guide completely transformed my trip to Tokyo. Every recommendation was spot-on, from the hidden ramen shops to the best viewpoints.",
-    category: "City Exploration",
+    name: "Helena Vala",
+    role: "Adventure Photographer",
+    comment: "The precision in the Bali spiritual guide was unmatched. It unlocked locations I hadn't found in years of self-led traveling.",
+    rating: 5,
+    avatar: "https://i.pravatar.cc/150?u=helena",
   },
   {
-    id: "2",
-    title: "Bali Spiritual Journey",
-    author: "Marcus Rodriguez",
-    rating: 4.8,
-    votes: 892,
-    excerpt:
-      "Found the perfect balance of adventure and relaxation. The temple recommendations and yoga retreat suggestions were incredible.",
-    category: "Cultural Experiences",
+    name: "Marcus Thorne",
+    role: "Luxury Consultant",
+    comment: "TravelGuide is my secret weapon for high-end client itineraries. The curation quality is consistently world-class.",
+    rating: 5,
+    avatar: "https://i.pravatar.cc/150?u=marcus",
   },
   {
-    id: "3",
-    title: "Paris Food Lover's Paradise",
-    author: "Emma Thompson",
-    rating: 4.7,
-    votes: 756,
-    excerpt:
-      "Discovered amazing local bistros and patisseries I never would have found on my own. The wine pairings were exceptional.",
-    category: "Food & Cuisine",
+    name: "Elena Rodriguez",
+    role: "Cultures Enthusiast",
+    comment: "Discovering the hidden tea houses of Tokyo through your interactive maps was a life-changing afternoon. Pure magic.",
+    rating: 4,
+    avatar: "https://i.pravatar.cc/150?u=elena",
   },
 ]
 
 export default function Testimonials() {
   return (
-    <section className="bg-gray-50 py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-            Traveler Favorites
-          </h2>
-          <p className="mt-4 text-lg text-gray-600">
-            Most loved guides by our community
-          </p>
+    <section className="bg-surface-container-low py-24 dark:bg-surface-container-high">
+      <div className="mx-auto max-w-7xl px-8">
+        <div className="mb-16 flex flex-col items-center justify-between gap-8 md:flex-row">
+          <div className="max-w-2xl space-y-4 text-center md:text-left">
+            <h2 className="font-heading text-3xl font-extrabold tracking-tighter text-primary md:text-5xl dark:text-primary-container">
+              Explorer Voices
+            </h2>
+            <p className="text-lg text-on-surface-variant leading-relaxed">
+              Real reflections from our global community of sophisticated travelers.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="h-5 w-5 fill-primary text-primary" />
+            ))}
+            <span className="ml-2 font-bold text-primary">4.9 / 5.0</span>
+          </div>
         </div>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-3">
-          {topGuides.map((guide, index) => (
-            <Card key={guide.id} className="relative overflow-hidden">
-              <CardContent className="p-6">
-                <div className="absolute top-4 right-4">
-                  <Badge
-                    variant="secondary"
-                    className="bg-blue-100 text-blue-800"
-                  >
-                    #{index + 1}
-                  </Badge>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={index}
+              className="glass-panel relative flex flex-col justify-between rounded-3xl p-10 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl"
+            >
+              <div className="absolute -top-6 -left-6 opacity-10">
+                <Quote className="h-24 w-24 text-primary" />
+              </div>
+              <div className="relative z-10 space-y-6">
+                <div className="flex gap-1">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                  ))}
                 </div>
-
-                <Quote className="h-8 w-8 text-blue-600" />
-
-                <p className="mt-4 text-gray-700 italic">"{guide.excerpt}"</p>
-
-                <div className="mt-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-semibold text-gray-900">
-                        {guide.title}
-                      </h4>
-                      <p className="text-sm text-gray-600">by {guide.author}</p>
-                    </div>
-                    <div className="text-right">
-                      <div className="flex items-center gap-1">
-                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm font-medium">
-                          {guide.rating}
-                        </span>
-                      </div>
-                      <p className="text-xs text-gray-500">
-                        {guide.votes} votes
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-3">
-                    <Badge variant="outline" className="text-xs">
-                      {guide.category}
-                    </Badge>
-                  </div>
+                <p className="font-sans text-lg italic leading-relaxed text-on-surface lg:text-xl">
+                  "{testimonial.comment}"
+                </p>
+              </div>
+              <div className="mt-10 flex items-center gap-4">
+                <div className="relative h-14 w-14 overflow-hidden rounded-full border-2 border-primary/20 bg-surface-container">
+                  <Image
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-              </CardContent>
-            </Card>
+                <div>
+                  <h4 className="font-heading font-bold text-on-surface">
+                    {testimonial.name}
+                  </h4>
+                  <p className="text-xs font-bold uppercase tracking-widest text-on-surface-variant opacity-70">
+                    {testimonial.role}
+                  </p>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>

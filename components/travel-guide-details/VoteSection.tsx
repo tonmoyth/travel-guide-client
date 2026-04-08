@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { ThumbsUp, ThumbsDown } from "lucide-react"
 import { toast } from "sonner"
 import { castVoteAction } from "@/actions/travel-details/castVoteAction"
 
@@ -60,43 +59,50 @@ export default function VoteSection({ guideId, voteStats }: Props) {
   const { voteCount, userVote } = currentStats
 
   return (
-    <div className="space-y-4 rounded border bg-white p-4 shadow-sm">
-      <h2 className="text-xl font-semibold">Voting</h2>
+    <div className="space-y-6">
+      <div className="flex items-center gap-2">
+         <span className="material-symbols-outlined text-primary">how_to_vote</span>
+         <h2 className="text-xl font-bold text-primary font-heading">Expedition Voting</h2>
+      </div>
+      
       {error && (
-        <div className="rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+        <div className="rounded-xl border border-error/20 bg-error/5 p-4 text-sm text-error">
           {error}
         </div>
       )}
+
       <div className="flex flex-wrap items-center gap-4">
         <button
           onClick={() => handleVote("UP")}
           disabled={isVoting}
-          className={`flex items-center gap-2 rounded px-4 py-2 ${
+          className={`flex items-center gap-2 rounded-full px-6 py-3 font-bold transition-all duration-300 shadow-sm hover:shadow-md ${
             userVote?.voteType === "UP"
-              ? "bg-green-500 text-white"
-              : "bg-gray-200 hover:bg-gray-300"
+              ? "bg-primary text-on-primary scale-105"
+              : "bg-surface-container-highest text-primary hover:bg-primary/10"
           }`}
         >
-          <ThumbsUp className="h-4 w-4" />
-          Upvote ({voteCount.upVotes})
+          <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: userVote?.voteType === 'UP' ? "'FILL' 1" : "" }}>thumb_up</span>
+          <span>{voteCount.upVotes}</span>
         </button>
+
         <button
           onClick={() => handleVote("DOWN")}
           disabled={isVoting}
-          className={`flex items-center gap-2 rounded px-4 py-2 ${
+          className={`flex items-center gap-2 rounded-full px-6 py-3 font-bold transition-all duration-300 shadow-sm hover:shadow-md ${
             userVote?.voteType === "DOWN"
-              ? "bg-red-500 text-white"
-              : "bg-gray-200 hover:bg-gray-300"
+              ? "bg-error text-on-error scale-105"
+              : "bg-surface-container-highest text-error hover:bg-error/10"
           }`}
         >
-          <ThumbsDown className="h-4 w-4" />
-          Downvote ({voteCount.downVotes})
+          <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: userVote?.voteType === 'DOWN' ? "'FILL' 1" : "" }}>thumb_down</span>
+          <span>{voteCount.downVotes}</span>
         </button>
+
         {userVote && (
           <button
             onClick={() => handleVote(userVote.voteType)}
             disabled={isVoting}
-            className="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+            className="text-xs font-bold text-slate-400 hover:text-primary transition-colors underline underline-offset-4"
           >
             Remove Vote
           </button>

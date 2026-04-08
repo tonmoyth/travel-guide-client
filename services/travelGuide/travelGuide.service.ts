@@ -263,7 +263,7 @@ const travelGuideServices = {
         const apiMessage = jsonBody?.message || response.statusText
         throw new Error(
           apiMessage ||
-            `Failed to submit guide for review (status ${response.status})`
+          `Failed to submit guide for review (status ${response.status})`
         )
       }
 
@@ -512,7 +512,7 @@ const travelGuideServices = {
           ...(cookieHeader ? { Cookie: cookieHeader } : {}),
         },
       })
-      console.log("Fetch guide details response:", response)
+
 
       if (!response.ok) {
         return {

@@ -8,18 +8,18 @@ export default async function TravelGuidesPage() {
 
   const initialData = result.success
     ? {
-        guides: result.data.data,
-        totalPages: result.data.meta.totalPages,
-        total: result.data.meta.total,
-      }
+      guides: result.data.data,
+      totalPages: result.data.meta.totalPages,
+      total: result.data.meta.total,
+    }
     : {
-        guides: [],
-        totalPages: 0,
-        total: 0,
-      }
+      guides: [],
+      totalPages: 0,
+      total: 0,
+    }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pt-15">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">

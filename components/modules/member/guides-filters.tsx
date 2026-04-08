@@ -232,15 +232,15 @@ export function GuidesFilters({
           statusValue !== "all" ||
           currentMinPrice ||
           currentMaxPrice) && (
-          <Button
-            variant="outline"
-            onClick={handleClearFilters}
-            className="gap-2"
-          >
-            <X className="h-4 w-4" />
-            Clear Filters
-          </Button>
-        )}
+            <Button
+              variant="outline"
+              onClick={handleClearFilters}
+              className="gap-2"
+            >
+              <X className="h-4 w-4" />
+              Clear Filters
+            </Button>
+          )}
       </div>
     </div>
   )

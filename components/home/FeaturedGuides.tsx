@@ -1,18 +1,7 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import {
-  MapPin,
-  Star,
-  Users,
-  Loader2,
-  Heart,
-  MessageCircle,
-} from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { Button } from "../ui/button"
 
 interface GuideCard {
   id: string
@@ -20,7 +9,6 @@ interface GuideCard {
   category: string
   description: string
   image: string
-  author: string
   location: string
   votes: number
   commentsCount: number
@@ -32,7 +20,48 @@ interface FeaturedGuidesProps {
 
 export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
   // Transform API data to component format
-  const transformedGuides: GuideCard[] = guides.map((guide) => {
+  const transformedGuides: GuideCard[] = (guides.length > 0 ? guides : [
+    {
+      id: "bali",
+      title: "The Bali Chronicles",
+      category: "Indonesia",
+      description: "Lush tropical villa pool overlooking a misty jungle valley.",
+      image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&q=80&w=1000",
+      location: "Bali",
+      votes: 120,
+      commentsCount: 15
+    },
+    {
+      id: "dolomites",
+      title: "Dolomites: Peak Serenity",
+      category: "Italy",
+      description: "Snow-capped peaks reflecting in a crystal clear alpine lake.",
+      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=1000",
+      location: "Italy",
+      votes: 95,
+      commentsCount: 8
+    },
+    {
+      id: "rajasthan",
+      title: "The Kings of Rajasthan",
+      category: "India",
+      description: "Intricate architecture of an ancient Indian temple complex.",
+      image: "https://images.unsplash.com/photo-1524230507669-5ff97982bb5e?auto=format&fit=crop&q=80&w=1000",
+      location: "India",
+      votes: 88,
+      commentsCount: 12
+    },
+    {
+      id: "phuket",
+      title: "Hidden Bays of Phuket",
+      category: "Thailand",
+      description: "Traditional wooden longtail boat floating on turquoise water.",
+      image: "https://images.unsplash.com/photo-1528181304800-2f140819ad9c?auto=format&fit=crop&q=80&w=1000",
+      location: "Thailand",
+      votes: 75,
+      commentsCount: 5
+    }
+  ]).map((guide) => {
     const totalVotes = Array.isArray(guide.votes)
       ? guide.votes.length
       : typeof guide.votes === "number"
@@ -41,140 +70,170 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
 
     const commentsCount =
       guide.comments?.filter((comment: any) => comment && !comment.isDeleted)
-        .length ?? 0
+        .length ?? (guide.commentsCount || 0)
 
     const imageUrl =
-      guide.coverImage || guide.guideMedia?.[0]?.url || "/assts/hero/hero.jpg"
+      guide.image ||
+      guide.coverImage ||
+      guide.guideMedia?.[0]?.url ||
+      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1000"
 
     return {
       id: guide.id,
       title: guide.title,
-      category: guide.category.title,
+      category: guide.category?.title || guide.category || "Travel",
       description: guide.description,
       image: imageUrl,
-      author: "Anonymous", // API doesn't provide author name for privacy
-      location: guide.category.title, // Using category as location for now
+      location: guide.category?.title || guide.location || "Location",
       votes: totalVotes,
       commentsCount: commentsCount,
     }
   })
 
-  if (transformedGuides.length === 0) {
-    return (
-      <section className="py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-              Featured Travel Guides
-            </h2>
-            <p className="mt-4 text-lg text-gray-600">
-              Handpicked guides from our community of expert travelers
-            </p>
-          </div>
-          <div className="mt-12 text-center">
-            <p className="text-gray-600">
-              No featured guides available at the moment.
-            </p>
-          </div>
-        </div>
-      </section>
-    )
-  }
+  // Take first 4 for the asymmetric grid
+  const featured = transformedGuides.slice(0, 4)
 
   return (
-    <section className="py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-            Featured Travel Guides
+    <section className="mx-auto max-w-7xl px-8 py-32">
+      <div className="mb-16 flex flex-col items-end justify-between gap-8 md:flex-row">
+        <div className="max-w-xl space-y-4">
+          <h2 className="text-4xl font-extrabold leading-tight tracking-tighter text-teal-900 md:text-6xl dark:text-teal-50">
+            Handpicked <br />
+            Escapes.
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
-            Handpicked guides from our community of expert travelers
+          <p className="text-lg text-on-surface-variant dark:text-on-surface-variant">
+            Explore our most coveted travel guides, curated with an eye for
+            luxury, authenticity, and hidden gems.
           </p>
         </div>
+        <Link
+          href="/travel-guides"
+          className="group flex items-center space-x-2 font-bold text-primary transition-transform duration-300 hover:translate-x-2"
+        >
+          <span className="border-b-2 border-primary">View All Guides</span>
+          <span className="material-symbols-outlined" data-icon="trending_flat">
+            trending_flat
+          </span>
+        </Link>
+      </div>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {transformedGuides.map((guide) => (
-            <Card
-              key={guide.id}
-              className="overflow-hidden transition hover:shadow-lg"
-            >
-              <div className="relative h-48">
-                <Image
-                  src={guide.image}
-                  alt={guide.title}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute top-4 left-4">
-                  <Badge
-                    variant="secondary"
-                    className="bg-white/90 text-gray-900"
-                  >
-                    {guide.category}
-                  </Badge>
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
+        {/* Large Featured Card (First) */}
+        {featured[0] && (
+          <Link
+            href={`/travel-guides/${featured[0].id}`}
+            className="group relative aspect-[16/10] overflow-hidden rounded-xl bg-surface-container shadow-xl md:col-span-8 dark:bg-surface-container-highest"
+          >
+            <Image
+              src={featured[0].image}
+              alt={featured[0].title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-teal-950/80 via-transparent to-transparent"></div>
+            <div className="absolute bottom-0 left-0 flex w-full items-end justify-between p-10">
+              <div className="space-y-2 text-white">
+                <span className="text-xs font-bold uppercase tracking-widest text-secondary-container">
+                  {featured[0].category}
+                </span>
+                <h3 className="text-4xl font-bold">{featured[0].title}</h3>
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center">
+                    <span
+                      className="material-symbols-outlined text-sm"
+                      data-icon="schedule"
+                    >
+                      schedule
+                    </span>
+                    <span className="ml-1 text-sm">Curated Guide</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span
+                      className="material-symbols-outlined text-sm"
+                      data-icon="hotel"
+                    >
+                      hotel
+                    </span>
+                    <span className="ml-1 text-sm">Luxury Boutique</span>
+                  </div>
                 </div>
               </div>
 
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-gray-900">
-                      {guide.title}
-                    </h3>
-                    <div className="mt-2 flex items-center gap-1 text-sm text-gray-600">
-                      {/* <MapPin className="h-4 w-4" /> */}
-                      <p> {guide.location}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  </div>
-                </div>
-
-                <p className="mt-3 line-clamp-3 text-gray-600">
-                  {guide.description}
-                </p>
-
-                <div className="mt-4 flex items-center justify-between">
-                  <div className="flex items-center gap-4 text-sm text-gray-700">
-                    <div className="flex items-center gap-1">
-                      <Heart className="h-4 w-4" />
-                      <span
-                        className="text-xs font-semibold text-gray-800"
-                        title="Likes"
-                      >
-                        {guide.votes}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <MessageCircle className="h-4 w-4" />
-                      <span
-                        className="text-xs font-semibold text-gray-800"
-                        title="Comments"
-                      >
-                        {guide.commentsCount}
-                      </span>
-                    </div>
-                  </div>
-                  <Link href={`/travel-guides/${guide.id}`}>
-                    <Button variant="outline" size="sm">
-                      View Details
-                    </Button>
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <div className="mt-12 text-center">
-          <Link href={`/travel-guides`}>
-            <Button variant="outline" size="sm">
-              View All Guides
-            </Button>
+            </div>
           </Link>
-        </div>
+        )}
+
+        {/* Secondary Card (Second) */}
+        {featured[1] && (
+          <Link
+            href={`/travel-guides/${featured[1].id}`}
+            className="group relative aspect-[4/5] overflow-hidden rounded-xl bg-surface-container shadow-xl md:col-span-4 md:mt-12 dark:bg-surface-container-highest"
+          >
+            <Image
+              src={featured[1].image}
+              alt={featured[1].title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-teal-950/80 via-transparent to-transparent"></div>
+            <div className="absolute bottom-0 left-0 p-8">
+              <span className="text-xs font-bold uppercase tracking-widest text-secondary-container">
+                {featured[1].category}
+              </span>
+              <h3 className="mt-2 text-2xl font-bold text-white">
+                {featured[1].title}
+              </h3>
+            </div>
+          </Link>
+        )}
+
+        {/* Third Card (Third) */}
+        {featured[2] && (
+          <Link
+            href={`/travel-guides/${featured[2].id}`}
+            className="group relative aspect-[4/5] overflow-hidden rounded-xl bg-surface-container shadow-xl md:col-span-4 md:-mt-12 dark:bg-surface-container-highest"
+          >
+            <Image
+              src={featured[2].image}
+              alt={featured[2].title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-teal-950/80 via-transparent to-transparent"></div>
+            <div className="absolute bottom-0 left-0 p-8">
+              <span className="text-xs font-bold uppercase tracking-widest text-secondary-container">
+                {featured[2].category}
+              </span>
+              <h3 className="mt-2 text-2xl font-bold text-white">
+                {featured[2].title}
+              </h3>
+            </div>
+          </Link>
+        )}
+
+        {/* Fourth Card (Fourth) */}
+        {featured[3] && (
+          <Link
+            href={`/travel-guides/${featured[3].id}`}
+            className="group relative aspect-[16/8] overflow-hidden rounded-xl bg-surface-container shadow-xl md:col-span-8 dark:bg-surface-container-highest"
+          >
+            <Image
+              src={featured[3].image}
+              alt={featured[3].title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-teal-950/80 via-transparent to-transparent"></div>
+            <div className="absolute bottom-0 left-0 p-10">
+              <span className="text-xs font-bold uppercase tracking-widest text-secondary-container">
+                {featured[3].category}
+              </span>
+              <h3 className="mt-2 text-4xl font-bold text-white">
+                {featured[3].title}
+              </h3>
+            </div>
+          </Link>
+        )}
       </div>
     </section>
   )

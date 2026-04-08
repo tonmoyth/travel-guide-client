@@ -1,216 +1,92 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import {
-  MapPin,
-  TrendingUp,
-  Users,
-  BookOpen,
-  ArrowRight,
-  Compass,
-} from "lucide-react"
-import Link from "next/link"
 import Image from "next/image"
+import Link from "next/link"
 
-interface Destination {
-  id: string
-  name: string
-  country: string
-  image: string
-  guidesCount: number
-  visitorsCount: number
-  description: string
-  icon: string
-  trending: boolean
-}
-
-const popularDestinations: Destination[] = [
+const destinations = [
   {
-    id: "1",
-    name: "Tokyo",
-    country: "Japan",
-    image: "/assets/hero/hero.jpg",
-    guidesCount: 124,
-    visitorsCount: 5420,
-    description: "Modern meets tradition in Japan's vibrant capital",
-    icon: "🗼",
-    trending: true,
-  },
-  {
-    id: "2",
-    name: "Paris",
-    country: "France",
-    image: "/assets/hero/hero.jpg",
-    guidesCount: 98,
-    visitorsCount: 4890,
-    description: "The city of love, art, and timeless elegance",
-    icon: "🗿",
-    trending: true,
-  },
-  {
-    id: "3",
     name: "Bali",
     country: "Indonesia",
-    image: "/assets/hero/hero.jpg",
-    guidesCount: 156,
-    visitorsCount: 6230,
-    description: "Tropical paradise with stunning beaches and temples",
-    icon: "🏝️",
-    trending: false,
+    tagline: "Paradise of spiritual discovery and tropical bliss.",
+    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&q=80&w=1000",
   },
   {
-    id: "4",
+    name: "Phuket",
+    country: "Thailand",
+    tagline: "Azure waters and vibrant island life await.",
+    image: "https://i.ibb.co.com/xKVwqDG9/a3d38a02-040a-4319-a463-cf1bc670deba.webp",
+  },
+  {
+    name: "Santorini",
+    country: "Greece",
+    tagline: "Whitewashed dreams overlooking the endless blue.",
+    image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&q=80&w=1000",
+  },
+  {
+    name: "Tokyo",
+    country: "Japan",
+    tagline: "A neon-lit journey through future and tradition.",
+    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&q=80&w=1000",
+  },
+  {
+    name: "Paris",
+    country: "France",
+    tagline: "Timeless romance and culinary excellence.",
+    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&q=80&w=1000",
+  },
+  {
     name: "New York",
     country: "USA",
-    image: "/assets/hero/hero.jpg",
-    guidesCount: 187,
-    visitorsCount: 7150,
-    description: "The city that never sleeps with endless possibilities",
-    icon: "🗽",
-    trending: false,
-  },
-  {
-    id: "5",
-    name: "Barcelona",
-    country: "Spain",
-    image: "/assets/hero/hero.jpg",
-    guidesCount: 112,
-    visitorsCount: 4560,
-    description: "Architecture, beaches, and vibrant Mediterranean culture",
-    icon: "🎨",
-    trending: true,
-  },
-  {
-    id: "6",
-    name: "Dubai",
-    country: "UAE",
-    image: "/assets/hero/hero.jpg",
-    guidesCount: 89,
-    visitorsCount: 3890,
-    description: "Ultra-modern luxury in the heart of the desert",
-    icon: "🏙️",
-    trending: false,
+    tagline: "The heartbeat of the world that never sleeps.",
+    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&q=80&w=1000",
   },
 ]
 
 export default function PopularDestinations() {
   return (
-    <section className="bg-white py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-12 text-center">
-          <div className="mb-4 flex items-center justify-center gap-2">
-            <Compass className="h-6 w-6 text-blue-600" />
-            <span className="text-sm font-semibold tracking-wide text-blue-600 uppercase">
-              Explore Destinations
-            </span>
-          </div>
-          <h2 className="mb-4 text-4xl font-bold text-gray-900">
-            Popular Travel Destinations
+    <section className="bg-background py-24">
+      <div className="mx-auto max-w-7xl px-8">
+        <div className="mb-16 text-center lg:text-left">
+          <h2 className="font-heading text-3xl font-extrabold tracking-tighter text-primary md:text-5xl dark:text-primary-container">
+            Popular Destinations
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            Discover our most loved travel destinations with comprehensive
-            guides created by our community of travel enthusiasts
+          <p className="mt-4 max-w-2xl text-lg text-on-surface-variant">
+            Explore our most coveted travel destinations, curated for those who seek the extraordinary.
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {popularDestinations.map((destination) => (
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {destinations.map((destination) => (
             <Link
-              key={destination.id}
-              href={`/travel-guides?destination=${destination.id}`}
+              key={destination.name}
+              href={`/travel-guides?search=${destination.name}`}
+              className="group relative aspect-4/3 overflow-hidden rounded-xl bg-surface-container shadow-sm transition-all duration-500 hover:shadow-xl dark:bg-surface-container-high"
             >
-              <Card className="h-full transform cursor-pointer overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                {/* Image Container */}
-                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-blue-400 to-blue-600">
-                  <Image
-                    src={destination.image}
-                    alt={destination.name}
-                    fill
-                    className="object-cover"
-                  />
-                  {/* Trending Badge */}
-                  {destination.trending && (
-                    <div className="absolute top-3 right-3">
-                      <Badge className="flex items-center gap-1 bg-red-500 text-white">
-                        <TrendingUp className="h-3 w-3" />
-                        Trending
-                      </Badge>
-                    </div>
-                  )}
-
-                  {/* Icon Overlay */}
-                  <div className="absolute bottom-3 left-3 rounded-full bg-white p-3 text-2xl shadow-md">
-                    {destination.icon}
-                  </div>
-                </div>
-
-                {/* Content */}
-                <CardContent className="p-5">
-                  {/* Title Section */}
-                  <div className="mb-3">
-                    <h3 className="text-xl font-bold text-gray-900">
-                      {destination.name}
-                    </h3>
-                    <div className="mt-1 flex items-center gap-1 text-sm text-gray-600">
-                      <MapPin className="h-4 w-4" />
-                      {destination.country}
-                    </div>
-                  </div>
-
-                  {/* Description */}
-                  <p className="mb-4 line-clamp-2 text-sm text-gray-600">
-                    {destination.description}
-                  </p>
-
-                  {/* Stats */}
-                  <div className="mb-4 grid grid-cols-2 gap-3 border-t border-b border-gray-200 py-3">
-                    <div className="flex items-center gap-2">
-                      <BookOpen className="h-4 w-4 text-blue-600" />
-                      <div>
-                        <div className="text-xs text-gray-500">Guides</div>
-                        <div className="font-bold text-gray-900">
-                          {destination.guidesCount}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4 text-green-600" />
-                      <div>
-                        <div className="text-xs text-gray-500">Visitors</div>
-                        <div className="font-bold text-gray-900">
-                          {destination.visitorsCount}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* CTA Button */}
-                  <Button className="group w-full bg-blue-600 text-white hover:bg-blue-700">
-                    Explore Guides
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </CardContent>
-              </Card>
+              <Image
+                src={destination.image}
+                alt={destination.name}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 p-8 text-white">
+                <span className="text-xs font-bold uppercase tracking-widest text-primary-container opacity-90">
+                  {destination.country}
+                </span>
+                <h3 className="mt-1 text-3xl font-bold tracking-tight">
+                  {destination.name}
+                </h3>
+                <p className="mt-2 line-clamp-2 text-sm text-white/80 leading-relaxed max-w-[250px]">
+                  {destination.tagline}
+                </p>
+              </div>
+              <div className="absolute top-6 right-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white">
+                  <span className="material-symbols-outlined text-sm">arrow_outward</span>
+                </span>
+              </div>
             </Link>
           ))}
-        </div>
-
-        {/* View All Button */}
-        <div className="mt-12 text-center">
-          <Link href="/travel-guides">
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-blue-600 text-blue-600 hover:bg-blue-50"
-            >
-              View All Destinations
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 import GuideDetails from "@/components/travel-guide-details/GuideDetails"
 
+
 interface Props {
   params: Promise<{
     id: string
@@ -8,5 +9,7 @@ interface Props {
 
 export default async function GuideDetailsPage({ params }: Props) {
   const { id } = await params
-  return <GuideDetails id={id} />
+  return <div className="pt-18">
+    <GuideDetails id={id} />
+  </div>
 }

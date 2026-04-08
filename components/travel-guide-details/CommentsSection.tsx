@@ -40,7 +40,7 @@ export default function CommentsSection({ guideId, comments }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!newComment.trim()) return
-    const toastId = toast.loading("Posting comment...")
+    const toastId = toast.loading("Posting expedition note...")
 
     setError(null)
     setIsSubmitting(true)
@@ -53,16 +53,15 @@ export default function CommentsSection({ guideId, comments }: Props) {
 
       if (result.success) {
         setNewComment("")
-        toast.success("Comment added successfully!", { id: toastId })
-        // The page will revalidate and show new comment
+        toast.success("Note added successfully!", { id: toastId })
         router.refresh()
       } else {
-        setError(result.message || "Failed to add comment")
-        toast.error(result.message || "Failed to add comment", { id: toastId })
+        setError(result.message || "Failed to add note")
+        toast.error(result.message || "Failed to add note", { id: toastId })
       }
     } catch (error: any) {
-      setError("Failed to add comment. Please try again.")
-      toast.error("Failed to add comment. Please try again.", { id: toastId })
+      setError("Failed to add note. Please try again.")
+      toast.error("Failed to add note. Please try again.", { id: toastId })
       console.error("Comment error:", error)
     } finally {
       setIsSubmitting(false)
@@ -70,49 +69,61 @@ export default function CommentsSection({ guideId, comments }: Props) {
   }
 
   return (
-    <div className="space-y-4 rounded border bg-white p-4 shadow-sm">
-      <h2 className="text-xl font-semibold">Comments</h2>
-
-      {error && (
-        <div className="rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-          {error}
+    <div className="space-y-12">
+      <div className="space-y-6">
+        <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-primary">edit_note</span>
+            <h2 className="text-xl font-bold text-primary font-heading">Expedition Notes</h2>
         </div>
-      )}
 
-      <form onSubmit={handleSubmit} className="space-y-2">
-        <textarea
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Add a comment..."
-          className="w-full rounded border p-2"
-          rows={3}
-          required
-        />
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:opacity-50"
-        >
-          {isSubmitting ? "Posting..." : "Post Comment"}
-        </button>
-      </form>
-
-      <div className="space-y-4">
-        {displayedComments && displayedComments.length > 0 ? (
-          displayedComments.map((comment) => (
-            <CommentItem key={comment.id} comment={comment} guideId={guideId} />
-          ))
-        ) : (
-          <p className="text-sm text-gray-500">
-            No comments yet. Start the discussion!
-          </p>
+        {error && (
+            <div className="rounded-xl border border-error/20 bg-error/5 p-4 text-sm text-error">
+            {error}
+            </div>
         )}
+
+        <form onSubmit={handleSubmit} className="relative group">
+            <textarea
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                placeholder="Share your expedition reflections..."
+                className="w-full bg-surface-container-highest border-none rounded-2xl p-6 focus:ring-2 focus:ring-primary min-h-[140px] font-sans text-on-surface shadow-inner transition-all placeholder:text-slate-400 dark:bg-surface-container-highest/50"
+                required
+            />
+            <button
+                type="submit"
+                disabled={isSubmitting}
+                className="absolute bottom-4 right-4 bg-primary text-on-primary px-8 py-2 rounded-full font-bold text-sm shadow-lg hover:scale-105 transition-all disabled:opacity-50"
+            >
+                {isSubmitting ? "Posting..." : "Post Note"}
+            </button>
+        </form>
+      </div>
+
+      <div className="space-y-8">
+        {displayedComments && displayedComments.length > 0 ? (
+          <div className="divide-y divide-primary/5">
+            {displayedComments.map((comment) => (
+              <div key={comment.id} className="py-6 first:pt-0">
+                <CommentItem comment={comment} guideId={guideId} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12 bg-primary/5 rounded-3xl border border-dashed border-primary/10">
+            <span className="material-symbols-outlined text-4xl text-primary/20 mb-2">forum</span>
+            <p className="text-sm text-slate-500 font-sans">
+                Silence rules this path. Be the first to leave a reflected note.
+            </p>
+          </div>
+        )}
+        
         {comments && comments.length > 5 && !showAll && (
           <button
             onClick={() => setShowAll(true)}
-            className="text-sm text-blue-500 hover:underline"
+            className="w-full py-4 text-sm font-bold text-primary hover:bg-primary/5 rounded-2xl transition-colors border border-primary/10"
           >
-            Show More Comments
+            Show All reflections ({comments.length})
           </button>
         )}
       </div>

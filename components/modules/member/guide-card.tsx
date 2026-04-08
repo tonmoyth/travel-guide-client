@@ -40,9 +40,9 @@ export function GuideCard({ guide, authorName }: GuideCardProps) {
           src={imageUrl}
           alt={guide.title}
           className="h-full w-full object-cover"
-          //   onError={(e) => {
-          //     e.currentTarget.src = `/images/guide-placeholder.jpg`
-          //   }}
+        //   onError={(e) => {
+        //     e.currentTarget.src = `/images/guide-placeholder.jpg`
+        //   }}
         />
         {guide.isPaid && (
           <div className="absolute top-2 right-2">
@@ -100,7 +100,7 @@ export function GuideCard({ guide, authorName }: GuideCardProps) {
           )}
           <Link
             href={`/travel-guides/${guide.id}`}
-            className="inline-flex rounded bg-primary px-3 py-1 text-sm text-primary-foreground hover:opacity-90"
+            className="inline-flex text-white rounded bg-primary px-3 py-1 text-sm text-primary-foreground hover:opacity-90"
           >
             View Guide
           </Link>
