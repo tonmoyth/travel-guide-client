@@ -11,6 +11,7 @@ import { UserInfo } from "@/types/user.types"
 import { logoutActionForNavber } from "@/app/actions/auth/logout"
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
+import Image from "next/image"
 
 interface NavbarProps {
   userInfo?: UserInfo | null
@@ -63,10 +64,12 @@ export function Navbar({ userInfo }: NavbarProps) {
     <nav className="fixed top-0 z-50 w-full bg-white/70 backdrop-blur-xl shadow-sm transition-all duration-300 dark:bg-black/60 dark:border-b dark:border-white/10">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8">
         {/* Logo */}
+
         <Link
           href="/"
-          className="text-2xl font-bold tracking-tighter text-teal-900 dark:text-teal-50"
+          className="text-2xl flex justify-center items-center font-bold tracking-tighter text-teal-900 dark:text-teal-50"
         >
+          <Image src="/assets/logo.png" alt="Logo" width={65} height={65} />
           Travel Guide
         </Link>
 

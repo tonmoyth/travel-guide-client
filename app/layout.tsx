@@ -1,10 +1,11 @@
-import { Geist, Geist_Mono, Inter, Plus_Jakarta_Sans } from "next/font/google"
-import Head from "next/head"
+import { Metadata, Viewport } from "next"
+import { Geist_Mono, Inter, Plus_Jakarta_Sans } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SonnerToaster } from "@/components/sonner-toaster"
 import { cn } from "@/lib/utils"
+import { siteConfig } from "@/config/site"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -16,6 +17,53 @@ const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+export const metadata: Metadata = {
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  authors: [
+    {
+      name: "Travel Guide Team",
+      url: "https://travelguide.com",
+    },
+  ],
+  creator: "Travel Guide Team",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://travel-guide-client-nine.vercel.app/",
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [
+      {
+        url: "/assets/hero.png",
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: ["/assets/hero.png"],
+    creator: "@travelguide",
+  },
+  manifest: "/site.webmanifest",
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+}
 
 export default function RootLayout({
   children,
@@ -43,7 +91,7 @@ export default function RootLayout({
       <body className={cn(inter.className, plusJakartaSans.variable)}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

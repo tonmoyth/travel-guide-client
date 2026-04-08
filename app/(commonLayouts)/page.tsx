@@ -6,11 +6,13 @@ import travelGuideServices from "@/services/travelGuide/travelGuide.service"
 import WhyChooseUs from "@/components/home/WhyChooseUs"
 import PopularDestinations from "@/components/home/PopularDestinations"
 import TravelCategories from "@/components/home/TravelCategories"
-import TravelGallery from "@/components/home/TravelGallery"
-import Testimonials from "@/components/home/Testimonials"
 import HowItWorks from "@/components/home/HowItWorks"
+import { Metadata } from "next"
 
-// export const revalidate = 30
+export const metadata: Metadata = {
+  title: "Home | Travel Guide",
+  description: "Explore curated travel guides, hidden gems, and community-verified itineraries from around the world.",
+}
 
 export default async function Home() {
   // Fetch top voted guides on server side
@@ -19,8 +21,6 @@ export default async function Home() {
     response.success && response.data ? response.data.slice(0, 3) : [];
   const FeaturedGuidesData =
     response.success && response.data ? response.data.slice(3, 7) : [];
-
-
 
 
 

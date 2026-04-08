@@ -1,4 +1,10 @@
 import Button from "@/components/shared/Button"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "Learn more about Travel Guide, our mission to empower travelers with real stories, and our community of explorers.",
+}
 
 export default function AboutUsPage() {
   return (

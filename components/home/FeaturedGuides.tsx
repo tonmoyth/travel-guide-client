@@ -56,7 +56,7 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
       title: "Hidden Bays of Phuket",
       category: "Thailand",
       description: "Traditional wooden longtail boat floating on turquoise water.",
-      image: "https://images.unsplash.com/photo-1528181304800-2f140819ad9c?auto=format&fit=crop&q=80&w=1000",
+      image: "https://i.ibb.co.com/Dg7yjbBv/0502-0403-phuket-xlarge.webp",
       location: "Thailand",
       votes: 75,
       commentsCount: 5
@@ -120,8 +120,8 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
         {/* Large Featured Card (First) */}
         {featured[0] && (
-          <Link
-            href={`/travel-guides/${featured[0].id}`}
+          <div
+
             className="group relative aspect-[16/10] overflow-hidden rounded-xl bg-surface-container shadow-xl md:col-span-8 dark:bg-surface-container-highest"
           >
             <Image
@@ -160,13 +160,13 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
               </div>
 
             </div>
-          </Link>
+          </div>
         )}
 
         {/* Secondary Card (Second) */}
         {featured[1] && (
-          <Link
-            href={`/travel-guides/${featured[1].id}`}
+          <div
+
             className="group relative aspect-[4/5] overflow-hidden rounded-xl bg-surface-container shadow-xl md:col-span-4 md:mt-12 dark:bg-surface-container-highest"
           >
             <Image
@@ -184,13 +184,13 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
                 {featured[1].title}
               </h3>
             </div>
-          </Link>
+          </div>
         )}
 
         {/* Third Card (Third) */}
         {featured[2] && (
-          <Link
-            href={`/travel-guides/${featured[2].id}`}
+          <div
+
             className="group relative aspect-[4/5] overflow-hidden rounded-xl bg-surface-container shadow-xl md:col-span-4 md:-mt-12 dark:bg-surface-container-highest"
           >
             <Image
@@ -208,13 +208,13 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
                 {featured[2].title}
               </h3>
             </div>
-          </Link>
+          </div>
         )}
 
         {/* Fourth Card (Fourth) */}
         {featured[3] && (
-          <Link
-            href={`/travel-guides/${featured[3].id}`}
+          <div
+
             className="group relative aspect-[16/8] overflow-hidden rounded-xl bg-surface-container shadow-xl md:col-span-8 dark:bg-surface-container-highest"
           >
             <Image
@@ -232,7 +232,7 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
                 {featured[3].title}
               </h3>
             </div>
-          </Link>
+          </div>
         )}
       </div>
     </section>
