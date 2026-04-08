@@ -30,6 +30,7 @@ export function RegisterForm({ redirectPath }: { redirectPath?: string }) {
           password: value.password,
         }
 
+
         const result = await registerAction(registerPayload)
 
         if (!result.success) {
@@ -274,6 +275,22 @@ export function RegisterForm({ redirectPath }: { redirectPath?: string }) {
                 ) : (
                   "Create Account"
                 )}
+              </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  const uniqueEmail = `demo+${Date.now()}@travelguide.com`
+                  form.setFieldValue("name", "Demo User")
+                  form.setFieldValue("email", uniqueEmail)
+                  form.setFieldValue("password", "Demo@1234")
+                  form.setFieldValue("confirmPassword", "Demo@1234")
+                  toast.success("Demo account ready with unique email")
+                }}
+                className="h-14 w-full rounded-full border-primary/20 bg-transparent text-sm font-semibold tracking-wide text-primary transition-all hover:bg-primary/5 active:scale-[0.98]"
+              >
+                Try Demo Account
               </Button>
             </form>
           </form.Provider>

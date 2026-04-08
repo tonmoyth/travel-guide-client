@@ -15,7 +15,8 @@ export const registerAction = async (
     confirmPassword: payload.password,
   }
 
-  const parsedPayload = registerSchema.safeParse(fullPayload)
+  const parsedPayload = registerSchema.safeParse(fullPayload);
+
 
   if (!parsedPayload.success) {
     return {

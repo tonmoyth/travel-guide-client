@@ -1,5 +1,6 @@
 import DashboardNavber from "@/components/modules/dasboard/DashboardNavber"
 import DashboardSidebar from "@/components/modules/dasboard/DashboardSidebar"
+import ChatBotButton from "@/components/ai/ChatBotButton"
 import { getUserInfo } from "@/services/auth.service"
 import { redirect } from "next/navigation"
 
@@ -39,6 +40,8 @@ export default async function DashboardLayout({
           </main>
         </main>
       </div>
+      {/* AI Chatbot floating button - visible on all dashboard pages */}
+      <ChatBotButton />
     </div>
   )
 }
