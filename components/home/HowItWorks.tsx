@@ -30,10 +30,10 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="bg-background py-32 dark:bg-surface-container">
-      <div className="mx-auto max-w-7xl px-8">
-        <div className="mb-24 text-center">
-          <h2 className="font-heading text-3xl font-extrabold tracking-tighter text-primary md:text-5xl dark:text-primary-container">
+    <section className="bg-background py-16 lg:py-24 dark:bg-surface-container">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-16 lg:mb-24 text-center">
+          <h2 className="font-heading text-3xl font-extrabold tracking-tighter text-primary lg:text-5xl dark:text-primary-container">
             Expedition Sequence
           </h2>
           <p className="mt-4 text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">

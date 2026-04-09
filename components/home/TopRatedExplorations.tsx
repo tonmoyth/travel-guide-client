@@ -77,7 +77,7 @@ export default function TopRatedExplorations({
   const explorers = guides.length > 4 ? transformedGuides.slice(4, 7) : transformedGuides.slice(0, 3)
 
   return (
-    <section className="bg-white px-8 py-32 dark:bg-background">
+    <section className="bg-white px-4 sm:px-6 lg:px-8 py-16 lg:py-24 dark:bg-background">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 space-y-4 text-center md:text-left">
           <span className="text-xs font-bold uppercase tracking-widest text-primary">
@@ -117,7 +117,7 @@ export default function TopRatedExplorations({
                   </span>
                 </div> */}
               </div>
-              <div className="space-y-4 p-8">
+              <div className="space-y-4 p-6 lg:p-8">
                 <h3 className="text-2xl font-bold text-teal-900 dark:text-teal-50">
                   {guide.title}
                 </h3>

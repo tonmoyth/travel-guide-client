@@ -40,11 +40,11 @@ const categories = [
 
 export default function TravelCategories() {
   return (
-    <section className="bg-surface py-24 dark:bg-background">
-      <div className="mx-auto max-w-7xl px-8">
+    <section className="bg-surface py-16 lg:py-24 dark:bg-background">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 flex flex-col items-center justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-2xl space-y-4 text-center md:text-left">
-            <h2 className="font-heading text-3xl font-extrabold tracking-tighter text-primary md:text-5xl dark:text-primary-container">
+            <h2 className="font-heading text-3xl font-extrabold tracking-tighter text-primary lg:text-5xl dark:text-primary-container">
               Travel Categories
             </h2>
             <p className="text-lg text-on-surface-variant leading-relaxed">
@@ -65,7 +65,7 @@ export default function TravelCategories() {
             <Link
               key={category.slug}
               href={`/travel-guides?category=${category.slug}`}
-              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-outline/10 bg-surface-container p-8 transition-all duration-300 hover:scale-[1.02] hover:bg-surface-container-high hover:shadow-lg dark:bg-surface-container-low dark:hover:bg-surface-container"
+              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-outline/10 bg-surface-container p-6 lg:p-8 transition-all duration-300 hover:scale-[1.02] hover:bg-surface-container-high hover:shadow-lg dark:bg-surface-container-low dark:hover:bg-surface-container"
             >
               <div className="space-y-6">
                 <div className={`flex h-16 w-16 items-center justify-center rounded-xl ${category.color} ${category.iconColor} transition-transform duration-500 group-hover:scale-110`}>

@@ -49,8 +49,8 @@ export default function Newsletter() {
   }
 
   return (
-    <section className="px-8 py-32">
-      <div className="relative flex flex-col items-center justify-between gap-16 overflow-hidden rounded-[2.5rem] bg-primary p-12 md:flex-row md:p-24 mx-auto max-w-7xl">
+    <section className="px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+      <div className="relative flex flex-col items-center justify-between gap-12 overflow-hidden rounded-[2.5rem] bg-primary p-8 sm:p-12 lg:p-24 mx-auto max-w-7xl md:flex-row">
         {/* Visual Background Elements */}
         <div className="pointer-events-none absolute top-0 right-0 h-full w-1/2 opacity-10">
           <span
@@ -62,7 +62,7 @@ export default function Newsletter() {
         </div>
 
         <div className="relative z-10 max-w-xl space-y-6 text-center md:text-left">
-          <h2 className="text-4xl font-extrabold leading-tight tracking-tighter text-white md:text-6xl">
+          <h2 className="text-4xl font-extrabold leading-tight tracking-tighter text-white lg:text-6xl">
             Stay Curated.
           </h2>
           <p className="text-lg text-white text-primary-fixed">

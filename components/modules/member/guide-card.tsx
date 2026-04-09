@@ -51,6 +51,13 @@ export function GuideCard({ guide, authorName }: GuideCardProps) {
             </span>
           </div>
         )}
+        {guide.isPaid === false && (
+          <div className="absolute top-2 right-2">
+            <span className="inline-block rounded bg-primary px-2 py-1 text-xs font-semibold text-white">
+              Free
+            </span>
+          </div>
+        )}
       </div>
 
       <CardContent className="p-4">

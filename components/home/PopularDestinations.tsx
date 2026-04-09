@@ -44,8 +44,8 @@ const destinations = [
 
 export default function PopularDestinations() {
   return (
-    <section className="bg-background py-24">
-      <div className="mx-auto max-w-7xl px-8">
+    <section className="bg-background py-16 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 text-center lg:text-left">
           <h2 className="font-heading text-3xl font-extrabold tracking-tighter text-primary md:text-5xl dark:text-primary-container">
             Popular Destinations
@@ -69,7 +69,7 @@ export default function PopularDestinations() {
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 p-8 text-white">
+              <div className="absolute bottom-0 left-0 p-6 lg:p-8 text-white w-full">
                 <span className="text-xs font-bold uppercase tracking-widest text-primary-container opacity-90">
                   {destination.country}
                 </span>

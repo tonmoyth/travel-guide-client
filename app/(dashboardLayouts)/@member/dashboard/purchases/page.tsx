@@ -59,7 +59,7 @@ export default function PurchasesPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="mx-auto  px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto py-12 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold">My Purchases</h1>
           <p className="mt-2 text-muted-foreground">Error: {error}</p>
         </div>
@@ -69,7 +69,7 @@ export default function PurchasesPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto  px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto py-12 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold">My Purchases</h1>
         <p className="mt-2 text-muted-foreground">
           View all the travel guides you've purchased

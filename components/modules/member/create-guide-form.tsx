@@ -189,7 +189,7 @@ export function CreateGuideForm({ categories }: CreateGuideFormProps) {
   })
 
   return (
-    <div className="min-h-screen w-full bg-muted/10 p-6">
+    <div className="min-h-screen w-full bg-muted/10 ">
       <Card className="w-full max-w-none">
         <CardHeader>
           <CardTitle>Create Travel Guide</CardTitle>

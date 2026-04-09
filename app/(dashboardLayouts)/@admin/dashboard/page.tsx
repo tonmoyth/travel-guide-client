@@ -70,7 +70,7 @@ export default async function AdminDashboardPage() {
   ]
 
   return (
-    <div className="min-h-screen space-y-12 p-8 lg:p-12">
+    <div className="min-h-screen space-y-12 lg:p-12">
       {/* SaaS Style Header */}
       <header className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div className="space-y-2">

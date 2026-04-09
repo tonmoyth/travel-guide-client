@@ -62,15 +62,17 @@ export function Navbar({ userInfo }: NavbarProps) {
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-white/70 backdrop-blur-xl shadow-sm transition-all duration-300 dark:bg-black/60 dark:border-b dark:border-white/10">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8">
+      <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
 
         <Link
           href="/"
-          className="text-2xl flex justify-center items-center font-bold tracking-tighter text-teal-900 dark:text-teal-50"
+          className="flex items-center gap-2 text-xl md:text-2xl font-bold tracking-tighter text-teal-900 dark:text-teal-50"
         >
-          <Image src="/assets/logo.png" alt="Logo" width={65} height={65} />
-          Travel Guide
+          <div className="relative w-10 h-10 md:w-[65px] md:h-[65px]">
+            <Image src="/assets/logo.png" alt="Logo" fill className="object-contain" />
+          </div>
+          <span className="hidden sm:inline-block">Travel Guide</span>
         </Link>
 
         {/* Desktop Navigation */}

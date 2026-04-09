@@ -4,7 +4,7 @@ import Image from "next/image"
 
 export default function WhyChooseUs() {
   return (
-    <section className="overflow-hidden bg-surface-container-low px-8 py-32 dark:bg-black/20">
+    <section className="overflow-hidden bg-surface-container-low px-4 sm:px-6 lg:px-8 py-16 lg:py-24 dark:bg-black/20">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-20 md:flex-row">
         {/* Left Content */}
         <div className="space-y-10 md:w-1/2">
@@ -12,7 +12,7 @@ export default function WhyChooseUs() {
             <span className="text-xs font-bold uppercase tracking-widest text-primary">
               The Digital Curator Standard
             </span>
-            <h2 className="text-4xl font-extrabold leading-[1.1] tracking-tighter text-teal-900 md:text-6xl dark:text-teal-50">
+            <h2 className="text-4xl font-extrabold leading-[1.1] tracking-tighter text-teal-900 lg:text-6xl dark:text-teal-50">
               Why Travelers Love Us.
             </h2>
           </div>

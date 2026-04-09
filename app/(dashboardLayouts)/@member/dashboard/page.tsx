@@ -33,7 +33,7 @@ export default async function MemberDashboardPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto px-4 py-12 sm:px-6">
+      <div className="mx-auto py-12 sm:px-6">
         {/* Stats Cards */}
         <div className="mb-8">
           <StatsCards stats={stats} />

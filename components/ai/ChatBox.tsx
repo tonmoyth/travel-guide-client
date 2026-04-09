@@ -92,7 +92,7 @@ export default function ChatBox({ onClose }: ChatBoxProps) {
     <div
       className="
         flex flex-col
-        w-[370px] h-[560px] max-h-[80vh]
+        w-[calc(100vw-2rem)] sm:w-[370px] h-[560px] max-h-[75vh] sm:max-h-[80vh]
         rounded-2xl overflow-hidden
         shadow-2xl
         border border-outline/20

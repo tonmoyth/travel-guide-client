@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-teal-50 dark:bg-black/40 dark:border-t dark:border-white/10">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between px-12 py-16 md:flex-row">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between px-4 sm:px-6 lg:px-8 py-16 md:flex-row">
         <div className="mb-8 space-y-4 text-center md:mb-0 md:text-left">
           <Link
             href="/"

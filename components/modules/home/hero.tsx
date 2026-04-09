@@ -21,7 +21,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative flex min-h-[1000px] items-center justify-center overflow-hidden px-8">
+    <section className="relative flex min-h-[100vh] md:min-h-[800px] lg:min-h-[1000px] items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image

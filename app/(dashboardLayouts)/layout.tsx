@@ -29,15 +29,9 @@ export default async function DashboardLayout({
         {/* DashboardNavbar */}
         <DashboardNavber></DashboardNavber>
         {/* <DashboardNavbar /> */}
-        {/* Dashboard Content */}
-        <main className="flex-1 overflow-y-auto bg-muted/10 p-4 md:p-6 lg:p-0">
-          {/* Render children (commonProtected routes) first, then role-based slots */}
-          <main className="flex-1 overflow-y-auto bg-muted/10 p-4 md:p-6 lg:p-0">
-            {/* 1. First render common protected routes */}
-
-            {/* 2. Then render role-based content */}
-            {userInfo?.role === "ADMIN" ? admin : member}
-          </main>
+        <main className="flex-1 overflow-y-auto bg-muted/10 p-4 sm:p-6 lg:p-8 w-full">
+          {/* Render role-based content */}
+          {userInfo?.role === "ADMIN" ? admin : member}
         </main>
       </div>
       {/* AI Chatbot floating button - visible on all dashboard pages */}

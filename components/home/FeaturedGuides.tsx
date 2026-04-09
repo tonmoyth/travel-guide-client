@@ -94,10 +94,10 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
   const featured = transformedGuides.slice(0, 4)
 
   return (
-    <section className="mx-auto max-w-7xl px-8 py-32">
+    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-32">
       <div className="mb-16 flex flex-col items-end justify-between gap-8 md:flex-row">
         <div className="max-w-xl space-y-4">
-          <h2 className="text-4xl font-extrabold leading-tight tracking-tighter text-teal-900 md:text-6xl dark:text-teal-50">
+          <h2 className="text-4xl font-extrabold leading-tight tracking-tighter text-teal-900 lg:text-6xl dark:text-teal-50">
             Handpicked <br />
             Escapes.
           </h2>
@@ -131,7 +131,7 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-linear-to-t from-teal-950/80 via-transparent to-transparent"></div>
-            <div className="absolute bottom-0 left-0 flex w-full items-end justify-between p-10">
+            <div className="absolute bottom-0 left-0 flex w-full items-end justify-between p-6 lg:p-10">
               <div className="space-y-2 text-white">
                 <span className="text-xs font-bold uppercase tracking-widest text-secondary-container">
                   {featured[0].category}
@@ -176,7 +176,7 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-linear-to-t from-teal-950/80 via-transparent to-transparent"></div>
-            <div className="absolute bottom-0 left-0 p-8">
+            <div className="absolute bottom-0 left-0 p-6 lg:p-8">
               <span className="text-xs font-bold uppercase tracking-widest text-secondary-container">
                 {featured[1].category}
               </span>
@@ -200,7 +200,7 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-linear-to-t from-teal-950/80 via-transparent to-transparent"></div>
-            <div className="absolute bottom-0 left-0 p-8">
+            <div className="absolute bottom-0 left-0 p-6 lg:p-8">
               <span className="text-xs font-bold uppercase tracking-widest text-secondary-container">
                 {featured[2].category}
               </span>
@@ -224,7 +224,7 @@ export default function FeaturedGuides({ guides }: FeaturedGuidesProps) {
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-linear-to-t from-teal-950/80 via-transparent to-transparent"></div>
-            <div className="absolute bottom-0 left-0 p-10">
+            <div className="absolute bottom-0 left-0 p-6 lg:p-10">
               <span className="text-xs font-bold uppercase tracking-widest text-secondary-container">
                 {featured[3].category}
               </span>

@@ -62,7 +62,7 @@ export function Pagination({
           size="sm"
           onClick={() => typeof page === "number" && onPageChange(page)}
           disabled={page === "..."}
-          className="min-w-10"
+          className="min-w-10 text-white"
         >
           {page}
         </Button>

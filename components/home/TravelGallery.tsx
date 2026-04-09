@@ -37,10 +37,10 @@ const photos = [
 
 export default function TravelGallery() {
   return (
-    <section className="bg-background py-24">
-      <div className="mx-auto max-w-7xl px-8 text-center sm:text-left">
+    <section className="bg-background py-16 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center sm:text-left">
         <div className="mb-16 max-w-3xl space-y-4">
-          <h2 className="font-heading text-3xl font-extrabold tracking-tighter text-primary md:text-5xl dark:text-primary-container">
+          <h2 className="font-heading text-3xl font-extrabold tracking-tighter text-primary lg:text-5xl dark:text-primary-container">
             Expedition Gallery
           </h2>
           <p className="text-lg text-on-surface-variant">

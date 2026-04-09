@@ -59,7 +59,7 @@ export default function MemberFeedbackPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="mx-auto  px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto py-12 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold">Feedback from Admins</h1>
           <p className="mt-2 text-muted-foreground">Error: {error}</p>
         </div>
@@ -69,7 +69,7 @@ export default function MemberFeedbackPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto py-12 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold">Feedback from Admins</h1>
         <p className="mt-2 text-muted-foreground">
           View feedback and suggestions for your guides

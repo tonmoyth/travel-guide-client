@@ -29,11 +29,11 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="bg-surface-container-low py-24 dark:bg-surface-container-high">
-      <div className="mx-auto max-w-7xl px-8">
+    <section className="bg-surface-container-low py-16 lg:py-24 dark:bg-surface-container-high">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 flex flex-col items-center justify-between gap-8 md:flex-row">
           <div className="max-w-2xl space-y-4 text-center md:text-left">
-            <h2 className="font-heading text-3xl font-extrabold tracking-tighter text-primary md:text-5xl dark:text-primary-container">
+            <h2 className="font-heading text-3xl font-extrabold tracking-tighter text-primary lg:text-5xl dark:text-primary-container">
               Explorer Voices
             </h2>
             <p className="text-lg text-on-surface-variant leading-relaxed">
@@ -52,9 +52,9 @@ export default function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="glass-panel relative flex flex-col justify-between rounded-3xl p-10 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl"
+              className="glass-panel relative flex flex-col justify-between rounded-3xl p-6 lg:p-10 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl"
             >
-              <div className="absolute -top-6 -left-6 opacity-10">
+              <div className="absolute -top-6 -left-6 opacity-10 hidden sm:block">
                 <Quote className="h-24 w-24 text-primary" />
               </div>
               <div className="relative z-10 space-y-6">
