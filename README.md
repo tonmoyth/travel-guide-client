@@ -1,14 +1,23 @@
 # TravelGuide Hub
 
+
+
 A comprehensive online community portal where travelers can share, discover, and purchase travel guides. Built with Next.js, this platform connects passionate travelers with authentic destination experiences through user-generated content, community voting, and expert moderation.
 
+## 🌐 Live Link:
+[(https://travel-guide-client.vercel.app/]
+
 ## 🌟 Features
+
+### 🤖 AI-Powered Travel Assistant
+
+**AI**: AI-powered Travel Assistant Chatbot added!
 
 ### 👥 User Roles & Authentication
 
 - **Members**: Register, create/edit travel guides, vote, comment, purchase paid guides
 - **Admins**: Approve/reject guides, manage users, moderate content, provide feedback
-- **JWT-based authentication** with secure password hashing
+- **JWT-based authentication** 
 
 ### 📖 Travel Guide Management
 
@@ -23,18 +32,16 @@ A comprehensive online community portal where travelers can share, discover, and
 - **Voting System**: Upvote/downvote guides (one vote per user)
 - **Nested Comments**: Threaded discussions on guides
 - **Real-time Updates**: Live voting and commenting
-- **Social Sharing**: Share guides across platforms
 
 ### 🔍 Search & Discovery
 
 - **Advanced Search**: By title, destination, keywords
 - **Smart Filters**: Category, payment type, author, popularity
 - **Pagination**: Efficient browsing with 10-12 guides per page
-- **Sorting Options**: Recent, Top Voted, Most Commented
 
 ### 💳 Payment Integration
 
-- **Secure Payments**: SSLCommerz/ShurjoPay/Stripe integration
+- **Secure Payments**: Stripe integration
 - **Purchase Flow**: Seamless buying experience for premium guides
 - **Payment Validation**: Amount and transaction verification
 
@@ -54,6 +61,8 @@ A comprehensive online community portal where travelers can share, discover, and
 - **shadcn/ui** - Modern component library
 - **Lucide Icons** - Beautiful iconography
 - **Axios** - HTTP client for API calls
+- **better auth** - authentication
+
 
 ### Backend
 
@@ -62,12 +71,11 @@ A comprehensive online community portal where travelers can share, discover, and
 - **Prisma** - ORM for database management
 - **PostgreSQL** - Primary database
 - **JWT** - Authentication tokens
-- **bcrypt** - Password hashing
 
 ### DevOps & Tools
 
 - **Vercel** - Frontend deployment
-- **Railway/Render** - Backend deployment
+- **vercel** - Backend deployment
 - **Git** - Version control
 - **ESLint** - Code linting
 - **Prettier** - Code formatting
@@ -192,5 +200,31 @@ pnpm prisma:studio      # Open Prisma Studio
 1. Deploy backend API to Railway or Render
 2. Update `NEXT_PUBLIC_API_BASE_URL` with production URL
 3. Configure database connection strings
+
+## 📸 Project Preview
+
+Here are some screenshots of the application to showcase the UI:
+
+### Home Page
+![Home Page](./public/assets/screenshots/home.png)
+
+### Dashboard with AI chatbot
+![Dashboard with AI chatbot](./public/assets/screenshots/dashboard.png)
+
+### Travel Guide 
+![Travel Guide](./public/assets/screenshots/guide.png)
+
+
+## 🔑 Demo Credentials
+
+Provide demo login credentials for testing the application:
+
+### 👨‍💼 Admin Access
+- **Email:** [tonmoycoc19@gmail.com]
+- **Password:** 123456
+
+### 👤 Member Access
+- **Email:** [rionh94@gmail.com]
+- **Password:** 123456
 
 **Built with ❤️ for the travel community**
